@@ -36,31 +36,55 @@
  */
 
 /**
- * @title LE Audio Util
+ * @title Published Audio Capabilities Service Server (PACS)
  * 
  */
 
-#ifndef LE_AUDIO_UTIL_H
-#define LE_AUDIO_UTIL_H
+#ifndef PUBLISHED_AUDIO_CAPABILITIES_SERVICE_UTIL_H
+#define PUBLISHED_AUDIO_CAPABILITIES_SERVICE_UTIL_H
 
 #include <stdint.h>
-#include "le_audio.h"
+#include "le-audio/le_audio.h"
 
 #if defined __cplusplus
 extern "C" {
 #endif
 
-uint16_t le_audio_util_virtual_memcpy_helper(
-    const uint8_t * field_data, uint16_t field_len, uint16_t field_offset,
-    uint8_t * buffer, uint16_t buffer_size, uint16_t buffer_offset);
+/* API_START */
 
-uint16_t le_audio_util_metadata_virtual_memcpy(const le_audio_metadata_t * metadata, uint8_t metadata_length, uint16_t * records_offset, uint8_t * buffer, uint16_t buffer_size, uint16_t buffer_offset);
+// Audio capabilities
+typedef struct {
+    // Codec Specific Capabilities
+    // defines which of le_audio_codec_capability_type_t codec capabilities values are set
+    uint8_t  codec_capability_mask;
 
-uint16_t le_audio_util_metadata_parse(uint8_t * buffer, uint8_t buffer_size, le_audio_metadata_t * metadata);
+    uint16_t sampling_frequency_mask;          
+    uint8_t  supported_frame_durations_mask;
+    uint8_t  supported_audio_channel_counts_mask;
+    uint16_t octets_per_frame_min_num;          // 0-1 octet
+    uint16_t octets_per_frame_max_num;          // 2-3 octet
+    uint8_t  frame_blocks_per_sdu_max_num;
+} pacs_codec_capability_t;
 
-uint16_t le_audio_util_metadata_serialize(le_audio_metadata_t * metadata, uint8_t * event, uint16_t event_size);
+typedef struct {
+    le_audio_codec_id_t codec_id;
 
-uint16_t le_audio_util_metadata_serialize_using_mask(le_audio_metadata_t * metadata, uint8_t * tlv_buffer, uint16_t tlv_buffer_size);
+    pacs_codec_capability_t codec_capability;
+
+    uint8_t metadata_length;
+    le_audio_metadata_t metadata;
+} pacs_record_t;
+
+typedef struct {
+    pacs_record_t * records;
+    uint8_t  records_num;
+    uint32_t audio_locations_mask;
+    uint16_t available_audio_contexts_mask;
+    uint16_t supported_audio_contexts_mask;
+} pacs_streamendpoint_t;
+
+
+/* API_END */
 
 #if defined __cplusplus
 }

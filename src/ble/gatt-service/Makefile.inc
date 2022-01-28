@@ -3,6 +3,9 @@
 SRC_BLE_GATT_SERVICE_FILES = \
     ancs_client.c \
     audio_input_control_service_server.c \
+    audio_stream_control_service_client.c \
+    audio_stream_control_service_server.c \
+    audio_stream_control_service_util.c \
     battery_service_client.c \
     battery_service_server.c \
     bond_management_service_server.c \
@@ -19,11 +22,15 @@ SRC_BLE_GATT_SERVICE_FILES = \
     le_audio_util.c \
     mesh_provisioning_service_server.c \
     mesh_proxy_service_server.c \
+    media_control_service_server.c \
     microphone_control_service_server.c \
     nordic_spp_service_server.c \
+    published_audio_capabilities_service_client.c \
+    published_audio_capabilities_service_server.c \
     scan_parameters_service_client.c \
     scan_parameters_service_server.c \
     tx_power_service_server.c \
     ublox_spp_service_server.c \
     volume_control_service_server.c \
     volume_offset_control_service_server.c \
+    
