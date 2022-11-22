@@ -4620,6 +4620,24 @@ typedef uint8_t sm_key_t[16];
 */
 #define GATTSERVICE_SUBEVENT_PACS_DISCONNECTED                                    0x5Du
 
+
+// used by server
+/**
+ * @format 1H1
+ * @param subevent_code
+ * @param con_handle
+ * @param status
+*/
+#define GATTSERVICE_SUBEVENT_CSIS_REMOTE_CLIENT_CONNECTED                         0x5Eu
+
+/**
+ * @format 1H
+ * @param subevent_code
+ * @param con_handle
+*/
+#define GATTSERVICE_SUBEVENT_CSIS_REMOTE_CLIENT_DISCONNECTED                      0x5Fu
+
+
 // MAP Meta Event Group
 
 /**
