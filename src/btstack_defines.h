@@ -4628,14 +4628,14 @@ typedef uint8_t sm_key_t[16];
  * @param con_handle
  * @param status
 */
-#define GATTSERVICE_SUBEVENT_CSIS_REMOTE_CLIENT_CONNECTED                         0x5Eu
+#define GATTSERVICE_SUBEVENT_CSIS_COORDINATOR_CONNECTED                           0x5Eu
 
 /**
  * @format 1H
  * @param subevent_code
  * @param con_handle
 */
-#define GATTSERVICE_SUBEVENT_CSIS_REMOTE_CLIENT_DISCONNECTED                      0x5Fu
+#define GATTSERVICE_SUBEVENT_CSIS_COORDINATOR_DISCONNECTED                        0x5Fu
 
 
 // MAP Meta Event Group
