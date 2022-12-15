@@ -395,6 +395,7 @@ static void sm_run(void);
 static void sm_state_reset(void);
 static void sm_done_for_handle(hci_con_handle_t con_handle);
 static sm_connection_t * sm_get_connection_for_handle(hci_con_handle_t con_handle);
+static void sm_cache_ltk(sm_connection_t * connection, const sm_key_t ltk);
 #ifdef ENABLE_CROSS_TRANSPORT_KEY_DERIVATION
 static sm_connection_t * sm_get_connection_for_bd_addr_and_type(bd_addr_t address, bd_addr_type_t addr_type);
 #endif
@@ -3074,6 +3075,8 @@ static void sm_run(void){
             }
 #ifdef ENABLE_LE_PERIPHERAL
             case SM_RESPONDER_PH2_SEND_LTK_REPLY: {
+                // cache key before using
+                sm_cache_ltk(connection, setup->sm_ltk);
                 sm_key_t stk_flipped;
                 reverse_128(setup->sm_ltk, stk_flipped);
                 connection->sm_engine_state = SM_PH2_W4_CONNECTION_ENCRYPTED;
@@ -3085,6 +3088,8 @@ static void sm_run(void){
                 if (sm_get_ltk_callback != NULL){
                     (void)(*sm_get_ltk_callback)(connection->sm_handle, connection->sm_peer_addr_type, connection->sm_peer_address, setup->sm_ltk);
                 }
+                // cache key before using
+                sm_cache_ltk(connection, setup->sm_ltk);
                 sm_key_t ltk_flipped;
                 reverse_128(setup->sm_ltk, ltk_flipped);
                 connection->sm_engine_state = SM_PH4_W4_CONNECTION_ENCRYPTED;
@@ -4904,6 +4909,13 @@ static sm_connection_t * sm_get_connection_for_handle(hci_con_handle_t con_handl
     return &hci_con->sm_connection;
 }
 
+static void sm_cache_ltk(sm_connection_t * connection, const sm_key_t ltk){
+    hci_connection_t * hci_con = hci_connection_for_handle(connection->sm_handle);
+    btstack_assert(hci_con != NULL);
+    memcpy(hci_con->link_key, ltk, 16);
+    hci_con->link_key_type = 1;
+}
+
 #ifdef ENABLE_CROSS_TRANSPORT_KEY_DERIVATION
 static sm_connection_t * sm_get_connection_for_bd_addr_and_type(bd_addr_t address, bd_addr_type_t addr_type){
     hci_connection_t * hci_con = hci_connection_for_bd_addr_and_type(address, addr_type);
@@ -5181,6 +5193,18 @@ int sm_le_device_index(hci_con_handle_t con_handle ){
     sm_connection_t * sm_conn = sm_get_connection_for_handle(con_handle);
     if (!sm_conn) return -1;
     return sm_conn->sm_le_db_index;
+}
+
+uint8_t sm_get_ltk(hci_con_handle_t con_handle, sm_key_t ltk){
+    hci_connection_t * hci_connection = hci_connection_for_handle(con_handle);
+    if (hci_connection == NULL){
+        return ERROR_CODE_UNKNOWN_CONNECTION_IDENTIFIER;
+    }
+    if (hci_connection->link_key_type == 0){
+        return ERROR_CODE_PIN_OR_KEY_MISSING;
+    }
+    memcpy(ltk, hci_connection->link_key, 16);
+    return ERROR_CODE_SUCCESS;
 }
 
 static int gap_random_address_type_requires_updates(void){
