@@ -4270,30 +4270,6 @@ typedef uint8_t sm_key_t[16];
 */
 #define GATTSERVICE_SUBEVENT_ASCS_CODEC_CONFIGURATION_REQUEST                  0x32u
 
-/**
- * @format 1H111123333122111421
- * @param subevent_code
- * @param con_handle
- * @param ase_id
- * @param framing
- * @param preferred_phy
- * @param preferred_retransmission_number
- * @param max_transport_latency
- * @param presentation_delay_min
- * @param presentation_delay_max
- * @param preferred_presentation_delay_min
- * @param preferred_presentation_delay_max
- * @param coding_format
- * @param company_id
- * @param vendor_specific_codec_id
- * @param specific_codec_configuration_mask
- * @param sampling_frequency_index
- * @param frame_duration_index
- * @param audio_channel_allocation_mask
- * @param octets_per_frame 
- * @param frame_blocks_per_sdu 
-*/
-#define GATTSERVICE_SUBEVENT_ASCS_CODEC_CONFIGURATION                         0x33u
 
 /**
  * @format 1H1113112123
@@ -4310,7 +4286,7 @@ typedef uint8_t sm_key_t[16];
  * @param max_transport_latency
  * @param presentation_delay_us
 */
-#define GATTSERVICE_SUBEVENT_ASCS_QOS_CONFIGURATION                           0x034u
+#define GATTSERVICE_SUBEVENT_ASCS_QOS_CONFIGURATION_REQUEST                   0x034u
 
 /**
  * @format 1H1122JV3JV1JV2JV2JV
@@ -4335,16 +4311,83 @@ typedef uint8_t sm_key_t[16];
  * @param vendor_specific_metadata_value_length
  * @param vendor_specific_metadata_value
 */
-#define GATTSERVICE_SUBEVENT_ASCS_METADATA                                     0x35u
+#define GATTSERVICE_SUBEVENT_ASCS_METADATA_REQUEST                             0x35u
 
 /**
- * @format 1H11
+ * @format 12111123333122111421
  * @param subevent_code
- * @param con_handle
+ * @param ascs_cid
+ * @param ase_id
+ * @param framing
+ * @param preferred_phy
+ * @param preferred_retransmission_number
+ * @param max_transport_latency
+ * @param presentation_delay_min
+ * @param presentation_delay_max
+ * @param preferred_presentation_delay_min
+ * @param preferred_presentation_delay_max
+ * @param coding_format
+ * @param company_id
+ * @param vendor_specific_codec_id
+ * @param specific_codec_configuration_mask
+ * @param sampling_frequency_index
+ * @param frame_duration_index
+ * @param audio_channel_allocation_mask
+ * @param octets_per_frame 
+ * @param frame_blocks_per_sdu 
+*/
+#define GATTSERVICE_SUBEVENT_ASCS_CODEC_CONFIGURATION                         0x36u
+
+/**
+ * @format 121113112123
+ * @param subevent_code
+ * @param ascs_cid
+ * @param ase_id
+ * @param cig_id
+ * @param cis_id
+ * @param sdu_interval
+ * @param framing
+ * @param phy
+ * @param max_sdu
+ * @param retransmission_number
+ * @param max_transport_latency
+ * @param presentation_delay_us
+*/
+#define GATTSERVICE_SUBEVENT_ASCS_QOS_CONFIGURATION                           0x37u
+
+/**
+ * @format 121122JV3JV1JV2JV2JV
+ * @param subevent_code
+ * @param ascs_cid
+ * @param ase_id
+ * @param metadata_mask
+ * @param preferred_audio_contexts_mask
+ * @param streaming_audio_contexts_mask
+ * @param program_info_length
+ * @param program_info
+ * @param language_code
+ * @param ccids_num
+ * @param ccids
+ * @param parental_rating
+ * @param program_info_uri_length
+ * @param program_info_uri
+ * @param extended_metadata_type
+ * @param extended_metadata_value_length
+ * @param extended_metadata_value
+ * @param vendor_specific_metadata_type
+ * @param vendor_specific_metadata_value_length
+ * @param vendor_specific_metadata_value
+*/
+#define GATTSERVICE_SUBEVENT_ASCS_METADATA                                     0x38u
+
+/**
+ * @format 1211
+ * @param subevent_code
+ * @param ascs_cid
  * @param ase_id
  * @param state
 */
-#define GATTSERVICE_SUBEVENT_ASCS_STREAMENDPOINT_STATE                         0x36u
+#define GATTSERVICE_SUBEVENT_ASCS_STREAMENDPOINT_STATE                         0x39u
 
 // used by server to emit control point operation operation
 /**
@@ -4353,7 +4396,7 @@ typedef uint8_t sm_key_t[16];
  * @param con_handle
  * @param ase_id
 */ 
-#define GATTSERVICE_SUBEVENT_ASCS_CLIENT_START_READY                           0x37u
+#define GATTSERVICE_SUBEVENT_ASCS_CLIENT_START_READY                           0x3Au
 
 /**
  * @format 1H1
@@ -4361,7 +4404,7 @@ typedef uint8_t sm_key_t[16];
  * @param con_handle
  * @param ase_id
 */ 
-#define GATTSERVICE_SUBEVENT_ASCS_CLIENT_DISABLING                             0x38u
+#define GATTSERVICE_SUBEVENT_ASCS_CLIENT_DISABLING                             0x3Bu
 
 /**
  * @format 1H1
@@ -4369,7 +4412,7 @@ typedef uint8_t sm_key_t[16];
  * @param con_handle
  * @param ase_id
 */ 
-#define GATTSERVICE_SUBEVENT_ASCS_CLIENT_RELEASING                             0x39u
+#define GATTSERVICE_SUBEVENT_ASCS_CLIENT_RELEASING                             0x3Cu
 
 /**
  * @format 1H1
@@ -4377,7 +4420,7 @@ typedef uint8_t sm_key_t[16];
  * @param con_handle
  * @param ase_id
 */ 
-#define GATTSERVICE_SUBEVENT_ASCS_CLIENT_STOP_READY                            0x3Au
+#define GATTSERVICE_SUBEVENT_ASCS_CLIENT_STOP_READY                            0x3Du
 
 /**
  * @format 1H1
@@ -4385,7 +4428,7 @@ typedef uint8_t sm_key_t[16];
  * @param con_handle
  * @param ase_id
 */
-#define GATTSERVICE_SUBEVENT_ASCS_CLIENT_RELEASED                              0x3Bu
+#define GATTSERVICE_SUBEVENT_ASCS_CLIENT_RELEASED                              0x3Eu
 
 // used by server
 /**
@@ -4394,14 +4437,14 @@ typedef uint8_t sm_key_t[16];
  * @param con_handle
  * @param status
 */
-#define GATTSERVICE_SUBEVENT_ASCS_REMOTE_CLIENT_CONNECTED                      0x3Cu
+#define GATTSERVICE_SUBEVENT_ASCS_REMOTE_CLIENT_CONNECTED                      0x3Fu
 
 /**
  * @format 1H
  * @param subevent_code
  * @param con_handle
 */
-#define GATTSERVICE_SUBEVENT_ASCS_REMOTE_CLIENT_DISCONNECTED                   0x3Du
+#define GATTSERVICE_SUBEVENT_ASCS_REMOTE_CLIENT_DISCONNECTED                   0x40u
 
 /**
  * @format 1H21JVJV
@@ -4414,25 +4457,25 @@ typedef uint8_t sm_key_t[16];
  * @param source_ase_num
  * @param source_ase_ids 
 */
-#define GATTSERVICE_SUBEVENT_ASCS_REMOTE_SERVER_CONNECTED                      0x3Eu
+#define GATTSERVICE_SUBEVENT_ASCS_REMOTE_SERVER_CONNECTED                      0x41u
 
 /**
  * @format 12
  * @param subevent_code
  * @param ascs_cid
 */
-#define GATTSERVICE_SUBEVENT_ASCS_REMOTE_SERVER_DISCONNECTED                   0x3Fu
+#define GATTSERVICE_SUBEVENT_ASCS_REMOTE_SERVER_DISCONNECTED                   0x42u
 
 /**
- * @format 1H1111
+ * @format 121111
  * @param subevent_code
- * @param con_handle
+ * @param ascs_cid
  * @param opcode
  * @param ase_id
  * @param response_code
  * @param reason
 */ 
-#define GATTSERVICE_SUBEVENT_ASCS_CONTROL_POINT_OPERATION_RESPONSE             0x40u
+#define GATTSERVICE_SUBEVENT_ASCS_CONTROL_POINT_OPERATION_RESPONSE             0x43u
 
 /**
  * @format 1H41
@@ -4441,7 +4484,7 @@ typedef uint8_t sm_key_t[16];
  * @param audio_locations
  * @param role              see le_audio_role_t
 */
-#define GATTSERVICE_SUBEVENT_PACS_AUDIO_LOCATION_RECEIVED                      0x42u
+#define GATTSERVICE_SUBEVENT_PACS_AUDIO_LOCATION_RECEIVED                      0x44u
 
 /**
  * @format 1H21
@@ -4450,14 +4493,14 @@ typedef uint8_t sm_key_t[16];
  * @param bass_cid
  * @param status
 */
-#define GATTSERVICE_SUBEVENT_BASS_CONNECTED                                    0x43u
+#define GATTSERVICE_SUBEVENT_BASS_CONNECTED                                    0x45u
 
 /**
  * @format 12
  * @param subevent_code
  * @param bass_cid
 */
-#define GATTSERVICE_SUBEVENT_BASS_DISCONNECTED                                 0x44u
+#define GATTSERVICE_SUBEVENT_BASS_DISCONNECTED                                 0x46u
 
 /**
  * @format 1211
@@ -4466,7 +4509,7 @@ typedef uint8_t sm_key_t[16];
  * @param status
  * @param opcode
 */
-#define GATTSERVICE_SUBEVENT_BASS_SCAN_OPERATION_COMPLETE                       0x45u
+#define GATTSERVICE_SUBEVENT_BASS_SCAN_OPERATION_COMPLETE                       0x47u
 
 /**
  * @format 1211B1311P1
@@ -4482,7 +4525,7 @@ typedef uint8_t sm_key_t[16];
  * @param bad_code
  * @param subgroups_num
 */
-#define GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_BASE                     0x46u
+#define GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_BASE                     0x48u
 
 /**
  * @format 1214122JV3JV1JV2JV2JV
@@ -4508,7 +4551,7 @@ typedef uint8_t sm_key_t[16];
  * @param vendor_specific_metadata_value_length
  * @param vendor_specific_metadata_value
 */
-#define GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP                 0x47u
+#define GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP                 0x49u
 
 /**
  * @format 121
@@ -4516,7 +4559,7 @@ typedef uint8_t sm_key_t[16];
  * @param bass_cid
  * @param source_id
 */
-#define GATTSERVICE_SUBEVENT_BASS_NOTIFICATION_COMPLETE                         0x48u
+#define GATTSERVICE_SUBEVENT_BASS_NOTIFICATION_COMPLETE                         0x4Au
 
 /**
  * @format 12111
@@ -4526,7 +4569,7 @@ typedef uint8_t sm_key_t[16];
  * @param opcode
  * @param source_id
 */
-#define GATTSERVICE_SUBEVENT_BASS_SOURCE_OPERATION_COMPLETE                     0x49u
+#define GATTSERVICE_SUBEVENT_BASS_SOURCE_OPERATION_COMPLETE                     0x4Bu
 
 /**
  * @format 1H21
