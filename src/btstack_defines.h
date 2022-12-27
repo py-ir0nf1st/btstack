@@ -4711,6 +4711,22 @@ typedef uint8_t sm_key_t[16];
 #define GATTSERVICE_SUBEVENT_CSIS_COORDINATOR_DISCONNECTED                        0x5Fu
 
 
+/**
+ * @format 1H21
+ * @param subevent_code
+ * @param con_handle
+ * @param pacs_cid
+ * @param status
+*/
+#define GATTSERVICE_SUBEVENT_CSIS_REMOTE_SERVER_CONNECTED                         0x60u
+
+/**
+ * @format 12
+ * @param subevent_code
+ * @param pacs_cid
+*/
+#define GATTSERVICE_SUBEVENT_CSIS_REMOTE_SERVER_DISCONNECTED                      0x61u
+
 // MAP Meta Event Group
 
 /**
