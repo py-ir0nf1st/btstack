@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## Added
 ## Fixed
+- hci: fix set extended scan response
+
 ## Changed
 
 ## Release v1.5.5
