@@ -13163,7 +13163,7 @@ static inline const uint8_t * gattservice_subevent_aics_server_audio_input_desc_
 }
 
 /**
- * @brief Get field con_handle from event GATTSERVICE_SUBEVENT_VOCS_VOLUME_OFFSET
+ * @brief Get field con_handle from event GATTSERVICE_SUBEVENT_VOCS_SERVER_VOLUME_OFFSET
  * @param event packet
  * @return con_handle
  * @note: btstack_type H
@@ -13172,7 +13172,7 @@ static inline hci_con_handle_t gattservice_subevent_vocs_volume_offset_get_con_h
     return little_endian_read_16(event, 3);
 }
 /**
- * @brief Get field index from event GATTSERVICE_SUBEVENT_VOCS_VOLUME_OFFSET
+ * @brief Get field index from event GATTSERVICE_SUBEVENT_VOCS_SERVER_VOLUME_OFFSET
  * @param event packet
  * @return index
  * @note: btstack_type 1
@@ -13181,7 +13181,7 @@ static inline uint8_t gattservice_subevent_vocs_volume_offset_get_index(const ui
     return event[5];
 }
 /**
- * @brief Get field volume_offset from event GATTSERVICE_SUBEVENT_VOCS_VOLUME_OFFSET
+ * @brief Get field volume_offset from event GATTSERVICE_SUBEVENT_VOCS_SERVER_VOLUME_OFFSET
  * @param event packet
  * @return volume_offset
  * @note: btstack_type 2
@@ -13191,7 +13191,7 @@ static inline uint16_t gattservice_subevent_vocs_volume_offset_get_volume_offset
 }
 
 /**
- * @brief Get field con_handle from event GATTSERVICE_SUBEVENT_VOCS_AUDIO_LOCATION
+ * @brief Get field con_handle from event GATTSERVICE_SUBEVENT_VOCS_SERVER_AUDIO_LOCATION
  * @param event packet
  * @return con_handle
  * @note: btstack_type H
@@ -13200,7 +13200,7 @@ static inline hci_con_handle_t gattservice_subevent_vocs_audio_location_get_con_
     return little_endian_read_16(event, 3);
 }
 /**
- * @brief Get field index from event GATTSERVICE_SUBEVENT_VOCS_AUDIO_LOCATION
+ * @brief Get field index from event GATTSERVICE_SUBEVENT_VOCS_SERVER_AUDIO_LOCATION
  * @param event packet
  * @return index
  * @note: btstack_type 1
@@ -13209,7 +13209,7 @@ static inline uint8_t gattservice_subevent_vocs_audio_location_get_index(const u
     return event[5];
 }
 /**
- * @brief Get field audio_location from event GATTSERVICE_SUBEVENT_VOCS_AUDIO_LOCATION
+ * @brief Get field audio_location from event GATTSERVICE_SUBEVENT_VOCS_SERVER_AUDIO_LOCATION
  * @param event packet
  * @return audio_location
  * @note: btstack_type 4
@@ -13219,7 +13219,7 @@ static inline uint32_t gattservice_subevent_vocs_audio_location_get_audio_locati
 }
 
 /**
- * @brief Get field con_handle from event GATTSERVICE_SUBEVENT_VOCS_AUDIO_OUTPUT_DESC_CHANGED
+ * @brief Get field con_handle from event GATTSERVICE_SUBEVENT_VOCS_SERVER_AUDIO_OUTPUT_DESCRIPTION
  * @param event packet
  * @return con_handle
  * @note: btstack_type H
@@ -13228,7 +13228,7 @@ static inline hci_con_handle_t gattservice_subevent_vocs_audio_output_desc_chang
     return little_endian_read_16(event, 3);
 }
 /**
- * @brief Get field index from event GATTSERVICE_SUBEVENT_VOCS_AUDIO_OUTPUT_DESC_CHANGED
+ * @brief Get field index from event GATTSERVICE_SUBEVENT_VOCS_SERVER_AUDIO_OUTPUT_DESCRIPTION
  * @param event packet
  * @return index
  * @note: btstack_type 1
@@ -13237,7 +13237,7 @@ static inline uint8_t gattservice_subevent_vocs_audio_output_desc_changed_get_in
     return event[5];
 }
 /**
- * @brief Get field description_len from event GATTSERVICE_SUBEVENT_VOCS_AUDIO_OUTPUT_DESC_CHANGED
+ * @brief Get field description_len from event GATTSERVICE_SUBEVENT_VOCS_SERVER_AUDIO_OUTPUT_DESCRIPTION
  * @param event packet
  * @return description_len
  * @note: btstack_type J
@@ -13246,7 +13246,7 @@ static inline uint8_t gattservice_subevent_vocs_audio_output_desc_changed_get_de
     return event[6];
 }
 /**
- * @brief Get field description from event GATTSERVICE_SUBEVENT_VOCS_AUDIO_OUTPUT_DESC_CHANGED
+ * @brief Get field description from event GATTSERVICE_SUBEVENT_VOCS_SERVER_AUDIO_OUTPUT_DESCRIPTION
  * @param event packet
  * @return description
  * @note: btstack_type V
@@ -13256,39 +13256,39 @@ static inline const uint8_t * gattservice_subevent_vocs_audio_output_desc_change
 }
 
 /**
- * @brief Get field con_handle from event GATTSERVICE_SUBEVENT_VCS_VOLUME_STATE
+ * @brief Get field con_handle from event GATTSERVICE_SUBEVENT_VCS_SERVER_VOLUME_STATE
  * @param event packet
  * @return con_handle
  * @note: btstack_type H
  */
-static inline hci_con_handle_t gattservice_subevent_vcs_volume_state_get_con_handle(const uint8_t * event){
+static inline hci_con_handle_t gattservice_subevent_vcs_server_volume_state_get_con_handle(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
- * @brief Get field volume_setting from event GATTSERVICE_SUBEVENT_VCS_VOLUME_STATE
+ * @brief Get field volume_setting from event GATTSERVICE_SUBEVENT_VCS_SERVER_VOLUME_STATE
  * @param event packet
  * @return volume_setting
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_vcs_volume_state_get_volume_setting(const uint8_t * event){
+static inline uint8_t gattservice_subevent_vcs_server_volume_state_get_volume_setting(const uint8_t * event){
     return event[5];
 }
 /**
- * @brief Get field volume_change_step from event GATTSERVICE_SUBEVENT_VCS_VOLUME_STATE
+ * @brief Get field volume_change_step from event GATTSERVICE_SUBEVENT_VCS_SERVER_VOLUME_STATE
  * @param event packet
  * @return volume_change_step
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_vcs_volume_state_get_volume_change_step(const uint8_t * event){
+static inline uint8_t gattservice_subevent_vcs_server_volume_state_get_volume_change_step(const uint8_t * event){
     return event[6];
 }
 /**
- * @brief Get field mute from event GATTSERVICE_SUBEVENT_VCS_VOLUME_STATE
+ * @brief Get field mute from event GATTSERVICE_SUBEVENT_VCS_SERVER_VOLUME_STATE
  * @param event packet
  * @return mute
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_vcs_volume_state_get_mute(const uint8_t * event){
+static inline uint8_t gattservice_subevent_vcs_server_volume_state_get_mute(const uint8_t * event){
     return event[7];
 }
 
@@ -14555,7 +14555,7 @@ static inline uint8_t gattservice_subevent_ascs_client_control_point_operation_r
  * @return con_handle
  * @note: btstack_type H
  */
-static inline hci_con_handle_t gattservice_subevent_pacs_audio_location_received_get_con_handle(const uint8_t * event){
+static inline hci_con_handle_t gattservice_subevent_pacs_server_audio_locations_get_con_handle(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
@@ -14564,7 +14564,7 @@ static inline hci_con_handle_t gattservice_subevent_pacs_audio_location_received
  * @return audio_locations
  * @note: btstack_type 4
  */
-static inline uint32_t gattservice_subevent_pacs_audio_location_received_get_audio_locations(const uint8_t * event){
+static inline uint32_t gattservice_subevent_pacs_server_audio_locations_get_audio_locations(const uint8_t * event){
     return little_endian_read_32(event, 5);
 }
 /**
@@ -14573,7 +14573,7 @@ static inline uint32_t gattservice_subevent_pacs_audio_location_received_get_aud
  * @return role
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_pacs_audio_location_received_get_role(const uint8_t * event){
+static inline uint8_t gattservice_subevent_pacs_server_audio_locations_get_role(const uint8_t * event){
     return event[9];
 }
 
@@ -15778,6 +15778,64 @@ static inline uint8_t gattservice_subevent_mics_server_connected_get_status(cons
  * @note: btstack_type H
  */
 static inline hci_con_handle_t gattservice_subevent_mics_server_disconnected_get_con_handle(const uint8_t * event){
+    return little_endian_read_16(event, 3);
+}
+
+/**
+ * @brief Get field con_handle from event GATTSERVICE_SUBEVENT_PACS_SERVER_CONNECTED
+ * @param event packet
+ * @return con_handle
+ * @note: btstack_type H
+ */
+static inline hci_con_handle_t gattservice_subevent_pacs_server_connected_get_con_handle(const uint8_t * event){
+    return little_endian_read_16(event, 3);
+}
+/**
+ * @brief Get field status from event GATTSERVICE_SUBEVENT_PACS_SERVER_CONNECTED
+ * @param event packet
+ * @return status
+ * @note: btstack_type 1
+ */
+static inline uint8_t gattservice_subevent_pacs_server_connected_get_status(const uint8_t * event){
+    return event[5];
+}
+
+/**
+ * @brief Get field con_handle from event GATTSERVICE_SUBEVENT_PACS_SERVER_DISCONNECTED
+ * @param event packet
+ * @return con_handle
+ * @note: btstack_type H
+ */
+static inline hci_con_handle_t gattservice_subevent_pacs_server_disconnected_get_con_handle(const uint8_t * event){
+    return little_endian_read_16(event, 3);
+}
+
+/**
+ * @brief Get field con_handle from event GATTSERVICE_SUBEVENT_VCS_SERVER_CONNECTED
+ * @param event packet
+ * @return con_handle
+ * @note: btstack_type H
+ */
+static inline hci_con_handle_t gattservice_subevent_vcs_server_connected_get_con_handle(const uint8_t * event){
+    return little_endian_read_16(event, 3);
+}
+/**
+ * @brief Get field status from event GATTSERVICE_SUBEVENT_VCS_SERVER_CONNECTED
+ * @param event packet
+ * @return status
+ * @note: btstack_type 1
+ */
+static inline uint8_t gattservice_subevent_vcs_server_connected_get_status(const uint8_t * event){
+    return event[5];
+}
+
+/**
+ * @brief Get field con_handle from event GATTSERVICE_SUBEVENT_VCS_SERVER_DISCONNECTED
+ * @param event packet
+ * @return con_handle
+ * @note: btstack_type H
+ */
+static inline hci_con_handle_t gattservice_subevent_vcs_server_disconnected_get_con_handle(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 
