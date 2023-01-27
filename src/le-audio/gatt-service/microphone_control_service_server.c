@@ -63,23 +63,23 @@ static hci_con_handle_t mc_mute_state_client_configuration_connection;
 static uint16_t mc_mute_state_handle;
 static uint16_t mc_mute_state_handle_client_configuration;
 
-static btstack_packet_handler_t mics_callback;
+static btstack_packet_handler_t mics_server_callback;
 
 static audio_input_control_service_server_t aics_services[AICS_MAX_NUM_SERVICES];
 static uint8_t aics_services_num;
 
 static void microphone_control_service_server_emit_mute(gatt_microphone_control_mute_t mute_state){
-    btstack_assert(mics_callback != NULL);
+    btstack_assert(mics_server_callback != NULL);
     uint8_t event[6];
 
     uint8_t pos = 0;
     event[pos++] = HCI_EVENT_GATTSERVICE_META;
     event[pos++] = sizeof(event) - 2;
-    event[pos++] = GATTSERVICE_SUBEVENT_LOCAL_MICS_MUTE;
+    event[pos++] = GATTSERVICE_SUBEVENT_MICS_SERVER_LOCAL_MUTE;
     little_endian_store_16(event, pos, mc_mute_state_client_configuration_connection);
     pos += 2;
     event[pos++] = (uint8_t)mute_state;
-    (*mics_callback)(HCI_EVENT_PACKET, 0, event, sizeof(event));
+    (*mics_server_callback)(HCI_EVENT_PACKET, 0, event, sizeof(event));
 }
 
 
@@ -196,9 +196,9 @@ void microphone_control_service_server_init(gatt_microphone_control_mute_t mute_
 	att_server_register_service_handler(&microphone_control);
 }
 
-void microphone_control_service_server_register_packet_handler(btstack_packet_handler_t callback){
-	btstack_assert(callback != NULL);
-	mics_callback = callback;
+void microphone_control_service_server_register_packet_handler(btstack_packet_handler_t packet_handler){
+	btstack_assert(packet_handler != NULL);
+	mics_server_callback = packet_handler;
 }
 
 void microphone_control_service_server_set_mute(gatt_microphone_control_mute_t mute_state){
