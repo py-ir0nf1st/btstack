@@ -12976,68 +12976,68 @@ static inline uint16_t gattservice_subevent_scan_parameters_service_scan_interva
 }
 
 /**
- * @brief Get field hids_cid from event GATTSERVICE_SUBEVENT_MICS_CONNECTED
+ * @brief Get field hids_cid from event GATTSERVICE_SUBEVENT_MICS_CLIENT_CONNECTED
  * @param event packet
  * @return hids_cid
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_mics_connected_get_hids_cid(const uint8_t * event){
+static inline uint16_t gattservice_subevent_mics_client_connected_get_hids_cid(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
- * @brief Get field status from event GATTSERVICE_SUBEVENT_MICS_CONNECTED
+ * @brief Get field status from event GATTSERVICE_SUBEVENT_MICS_CLIENT_CONNECTED
  * @param event packet
  * @return status
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_mics_connected_get_status(const uint8_t * event){
+static inline uint8_t gattservice_subevent_mics_client_connected_get_status(const uint8_t * event){
     return event[5];
 }
 
 /**
- * @brief Get field cid from event GATTSERVICE_SUBEVENT_REMOTE_MICS_MUTE
+ * @brief Get field cid from event GATTSERVICE_SUBEVENT_MICS_CLIENT_MUTE
  * @param event packet
  * @return cid
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_remote_mics_mute_get_cid(const uint8_t * event){
+static inline uint16_t gattservice_subevent_mics_client_mute_get_cid(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
- * @brief Get field status from event GATTSERVICE_SUBEVENT_REMOTE_MICS_MUTE
+ * @brief Get field status from event GATTSERVICE_SUBEVENT_MICS_CLIENT_MUTE
  * @param event packet
  * @return status
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_remote_mics_mute_get_status(const uint8_t * event){
+static inline uint8_t gattservice_subevent_mics_client_mute_get_status(const uint8_t * event){
     return event[5];
 }
 /**
- * @brief Get field state from event GATTSERVICE_SUBEVENT_REMOTE_MICS_MUTE
+ * @brief Get field state from event GATTSERVICE_SUBEVENT_MICS_CLIENT_MUTE
  * @param event packet
  * @return state
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_remote_mics_mute_get_state(const uint8_t * event){
+static inline uint8_t gattservice_subevent_mics_client_mute_get_state(const uint8_t * event){
     return event[6];
 }
 
 /**
- * @brief Get field con_handle from event GATTSERVICE_SUBEVENT_MICS_SERVER_LOCAL_MUTE
+ * @brief Get field con_handle from event GATTSERVICE_SUBEVENT_MICS_SERVER_MUTE
  * @param event packet
  * @return con_handle
  * @note: btstack_type H
  */
-static inline hci_con_handle_t gattservice_subevent_mics_server_local_mute_get_con_handle(const uint8_t * event){
+static inline hci_con_handle_t gattservice_subevent_mics_server_mute_get_con_handle(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
- * @brief Get field state from event GATTSERVICE_SUBEVENT_MICS_SERVER_LOCAL_MUTE
+ * @brief Get field state from event GATTSERVICE_SUBEVENT_MICS_SERVER_MUTE
  * @param event packet
  * @return state
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_mics_server_local_mute_get_state(const uint8_t * event){
+static inline uint8_t gattservice_subevent_mics_server_mute_get_state(const uint8_t * event){
     return event[5];
 }
 
@@ -13168,7 +13168,7 @@ static inline const uint8_t * gattservice_subevent_aics_server_audio_input_desc_
  * @return con_handle
  * @note: btstack_type H
  */
-static inline hci_con_handle_t gattservice_subevent_vocs_volume_offset_get_con_handle(const uint8_t * event){
+static inline hci_con_handle_t gattservice_subevent_vocs_server_volume_offset_get_con_handle(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
@@ -13177,7 +13177,7 @@ static inline hci_con_handle_t gattservice_subevent_vocs_volume_offset_get_con_h
  * @return index
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_vocs_volume_offset_get_index(const uint8_t * event){
+static inline uint8_t gattservice_subevent_vocs_server_volume_offset_get_index(const uint8_t * event){
     return event[5];
 }
 /**
@@ -13186,7 +13186,7 @@ static inline uint8_t gattservice_subevent_vocs_volume_offset_get_index(const ui
  * @return volume_offset
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_vocs_volume_offset_get_volume_offset(const uint8_t * event){
+static inline uint16_t gattservice_subevent_vocs_server_volume_offset_get_volume_offset(const uint8_t * event){
     return little_endian_read_16(event, 6);
 }
 
@@ -13196,7 +13196,7 @@ static inline uint16_t gattservice_subevent_vocs_volume_offset_get_volume_offset
  * @return con_handle
  * @note: btstack_type H
  */
-static inline hci_con_handle_t gattservice_subevent_vocs_audio_location_get_con_handle(const uint8_t * event){
+static inline hci_con_handle_t gattservice_subevent_vocs_server_audio_location_get_con_handle(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
@@ -13205,7 +13205,7 @@ static inline hci_con_handle_t gattservice_subevent_vocs_audio_location_get_con_
  * @return index
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_vocs_audio_location_get_index(const uint8_t * event){
+static inline uint8_t gattservice_subevent_vocs_server_audio_location_get_index(const uint8_t * event){
     return event[5];
 }
 /**
@@ -13214,7 +13214,7 @@ static inline uint8_t gattservice_subevent_vocs_audio_location_get_index(const u
  * @return audio_location
  * @note: btstack_type 4
  */
-static inline uint32_t gattservice_subevent_vocs_audio_location_get_audio_location(const uint8_t * event){
+static inline uint32_t gattservice_subevent_vocs_server_audio_location_get_audio_location(const uint8_t * event){
     return little_endian_read_32(event, 6);
 }
 
@@ -13224,7 +13224,7 @@ static inline uint32_t gattservice_subevent_vocs_audio_location_get_audio_locati
  * @return con_handle
  * @note: btstack_type H
  */
-static inline hci_con_handle_t gattservice_subevent_vocs_audio_output_desc_changed_get_con_handle(const uint8_t * event){
+static inline hci_con_handle_t gattservice_subevent_vocs_server_audio_output_description_get_con_handle(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
@@ -13233,7 +13233,7 @@ static inline hci_con_handle_t gattservice_subevent_vocs_audio_output_desc_chang
  * @return index
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_vocs_audio_output_desc_changed_get_index(const uint8_t * event){
+static inline uint8_t gattservice_subevent_vocs_server_audio_output_description_get_index(const uint8_t * event){
     return event[5];
 }
 /**
@@ -13242,7 +13242,7 @@ static inline uint8_t gattservice_subevent_vocs_audio_output_desc_changed_get_in
  * @return description_len
  * @note: btstack_type J
  */
-static inline uint8_t gattservice_subevent_vocs_audio_output_desc_changed_get_description_len(const uint8_t * event){
+static inline uint8_t gattservice_subevent_vocs_server_audio_output_description_get_description_len(const uint8_t * event){
     return event[6];
 }
 /**
@@ -13251,7 +13251,7 @@ static inline uint8_t gattservice_subevent_vocs_audio_output_desc_changed_get_de
  * @return description
  * @note: btstack_type V
  */
-static inline const uint8_t * gattservice_subevent_vocs_audio_output_desc_changed_get_description(const uint8_t * event){
+static inline const uint8_t * gattservice_subevent_vocs_server_audio_output_description_get_description(const uint8_t * event){
     return &event[7];
 }
 
@@ -14583,7 +14583,7 @@ static inline uint8_t gattservice_subevent_pacs_server_audio_locations_get_role(
  * @return con_handle
  * @note: btstack_type H
  */
-static inline hci_con_handle_t gattservice_subevent_bass_connected_get_con_handle(const uint8_t * event){
+static inline hci_con_handle_t gattservice_subevent_bass_client_connected_get_con_handle(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
@@ -14592,7 +14592,7 @@ static inline hci_con_handle_t gattservice_subevent_bass_connected_get_con_handl
  * @return bass_cid
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_bass_connected_get_bass_cid(const uint8_t * event){
+static inline uint16_t gattservice_subevent_bass_client_connected_get_bass_cid(const uint8_t * event){
     return little_endian_read_16(event, 5);
 }
 /**
@@ -14601,7 +14601,7 @@ static inline uint16_t gattservice_subevent_bass_connected_get_bass_cid(const ui
  * @return status
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_bass_connected_get_status(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_connected_get_status(const uint8_t * event){
     return event[7];
 }
 
@@ -14611,326 +14611,326 @@ static inline uint8_t gattservice_subevent_bass_connected_get_status(const uint8
  * @return bass_cid
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_bass_disconnected_get_bass_cid(const uint8_t * event){
+static inline uint16_t gattservice_subevent_bass_client_disconnected_get_bass_cid(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 
 /**
- * @brief Get field bass_cid from event GATTSERVICE_SUBEVENT_BASS_SCAN_OPERATION_COMPLETE
+ * @brief Get field bass_cid from event GATTSERVICE_SUBEVENT_BASS_CLIENT_SCAN_OPERATION_COMPLETE
  * @param event packet
  * @return bass_cid
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_bass_scan_operation_complete_get_bass_cid(const uint8_t * event){
+static inline uint16_t gattservice_subevent_bass_client_scan_operation_complete_get_bass_cid(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
- * @brief Get field status from event GATTSERVICE_SUBEVENT_BASS_SCAN_OPERATION_COMPLETE
+ * @brief Get field status from event GATTSERVICE_SUBEVENT_BASS_CLIENT_SCAN_OPERATION_COMPLETE
  * @param event packet
  * @return status
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_bass_scan_operation_complete_get_status(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_scan_operation_complete_get_status(const uint8_t * event){
     return event[5];
 }
 /**
- * @brief Get field opcode from event GATTSERVICE_SUBEVENT_BASS_SCAN_OPERATION_COMPLETE
+ * @brief Get field opcode from event GATTSERVICE_SUBEVENT_BASS_CLIENT_SCAN_OPERATION_COMPLETE
  * @param event packet
  * @return opcode
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_bass_scan_operation_complete_get_opcode(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_scan_operation_complete_get_opcode(const uint8_t * event){
     return event[6];
 }
 
 /**
- * @brief Get field bass_cid from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_BASE
+ * @brief Get field bass_cid from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_BASE
  * @param event packet
  * @return bass_cid
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_bass_notify_receive_state_base_get_bass_cid(const uint8_t * event){
+static inline uint16_t gattservice_subevent_bass_client_notify_receive_state_base_get_bass_cid(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
- * @brief Get field source_id from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_BASE
+ * @brief Get field source_id from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_BASE
  * @param event packet
  * @return source_id
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_bass_notify_receive_state_base_get_source_id(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_notify_receive_state_base_get_source_id(const uint8_t * event){
     return event[5];
 }
 /**
- * @brief Get field source_address_type from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_BASE
+ * @brief Get field source_address_type from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_BASE
  * @param event packet
  * @return source_address_type
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_bass_notify_receive_state_base_get_source_address_type(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_notify_receive_state_base_get_source_address_type(const uint8_t * event){
     return event[6];
 }
 /**
- * @brief Get field source_address from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_BASE
+ * @brief Get field source_address from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_BASE
  * @param event packet
  * @param Pointer to storage for source_address
  * @note: btstack_type B
  */
-static inline void gattservice_subevent_bass_notify_receive_state_base_get_source_address(const uint8_t * event, bd_addr_t source_address){
+static inline void gattservice_subevent_bass_client_notify_receive_state_base_get_source_address(const uint8_t * event, bd_addr_t source_address){
     reverse_bytes(&event[7], source_address, 6);
 }
 /**
- * @brief Get field source_adv_sid from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_BASE
+ * @brief Get field source_adv_sid from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_BASE
  * @param event packet
  * @return source_adv_sid
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_bass_notify_receive_state_base_get_source_adv_sid(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_notify_receive_state_base_get_source_adv_sid(const uint8_t * event){
     return event[13];
 }
 /**
- * @brief Get field broadcast_id from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_BASE
+ * @brief Get field broadcast_id from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_BASE
  * @param event packet
  * @return broadcast_id
  * @note: btstack_type 3
  */
-static inline uint32_t gattservice_subevent_bass_notify_receive_state_base_get_broadcast_id(const uint8_t * event){
+static inline uint32_t gattservice_subevent_bass_client_notify_receive_state_base_get_broadcast_id(const uint8_t * event){
     return little_endian_read_24(event, 14);
 }
 /**
- * @brief Get field pa_sync_state from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_BASE
+ * @brief Get field pa_sync_state from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_BASE
  * @param event packet
  * @return pa_sync_state
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_bass_notify_receive_state_base_get_pa_sync_state(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_notify_receive_state_base_get_pa_sync_state(const uint8_t * event){
     return event[17];
 }
 /**
- * @brief Get field big_encryption from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_BASE
+ * @brief Get field big_encryption from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_BASE
  * @param event packet
  * @return big_encryption
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_bass_notify_receive_state_base_get_big_encryption(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_notify_receive_state_base_get_big_encryption(const uint8_t * event){
     return event[18];
 }
 /**
- * @brief Get field bad_code from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_BASE
+ * @brief Get field bad_code from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_BASE
  * @param event packet
  * @param Pointer to storage for bad_code
  * @note: btstack_type K
  */
-static inline void gattservice_subevent_bass_notify_receive_state_base_get_bad_code(const uint8_t * event, uint8_t * bad_code){
+static inline void gattservice_subevent_bass_client_notify_receive_state_base_get_bad_code(const uint8_t * event, uint8_t * bad_code){
     reverse_bytes(&event[19], bad_code, 16);
 }
 /**
- * @brief Get field subgroups_num from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_BASE
+ * @brief Get field subgroups_num from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_BASE
  * @param event packet
  * @return subgroups_num
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_bass_notify_receive_state_base_get_subgroups_num(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_notify_receive_state_base_get_subgroups_num(const uint8_t * event){
     return event[35];
 }
 
 /**
- * @brief Get field bass_cid from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field bass_cid from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return bass_cid
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_bass_notify_receive_state_subgroup_get_bass_cid(const uint8_t * event){
+static inline uint16_t gattservice_subevent_bass_client_notify_receive_state_subgroup_get_bass_cid(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
- * @brief Get field source_id from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field source_id from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return source_id
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_bass_notify_receive_state_subgroup_get_source_id(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_notify_receive_state_subgroup_get_source_id(const uint8_t * event){
     return event[5];
 }
 /**
- * @brief Get field bis_sync_state from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field bis_sync_state from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return bis_sync_state
  * @note: btstack_type 4
  */
-static inline uint32_t gattservice_subevent_bass_notify_receive_state_subgroup_get_bis_sync_state(const uint8_t * event){
+static inline uint32_t gattservice_subevent_bass_client_notify_receive_state_subgroup_get_bis_sync_state(const uint8_t * event){
     return little_endian_read_32(event, 6);
 }
 /**
- * @brief Get field metadata_mask from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field metadata_mask from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return metadata_mask
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_bass_notify_receive_state_subgroup_get_metadata_mask(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_notify_receive_state_subgroup_get_metadata_mask(const uint8_t * event){
     return event[10];
 }
 /**
- * @brief Get field preferred_audio_contexts_mask from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field preferred_audio_contexts_mask from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return preferred_audio_contexts_mask
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_bass_notify_receive_state_subgroup_get_preferred_audio_contexts_mask(const uint8_t * event){
+static inline uint16_t gattservice_subevent_bass_client_notify_receive_state_subgroup_get_preferred_audio_contexts_mask(const uint8_t * event){
     return little_endian_read_16(event, 11);
 }
 /**
- * @brief Get field streaming_audio_contexts_mask from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field streaming_audio_contexts_mask from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return streaming_audio_contexts_mask
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_bass_notify_receive_state_subgroup_get_streaming_audio_contexts_mask(const uint8_t * event){
+static inline uint16_t gattservice_subevent_bass_client_notify_receive_state_subgroup_get_streaming_audio_contexts_mask(const uint8_t * event){
     return little_endian_read_16(event, 13);
 }
 /**
- * @brief Get field program_info_length from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field program_info_length from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return program_info_length
  * @note: btstack_type J
  */
-static inline uint8_t gattservice_subevent_bass_notify_receive_state_subgroup_get_program_info_length(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_notify_receive_state_subgroup_get_program_info_length(const uint8_t * event){
     return event[15];
 }
 /**
- * @brief Get field program_info from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field program_info from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return program_info
  * @note: btstack_type V
  */
-static inline const uint8_t * gattservice_subevent_bass_notify_receive_state_subgroup_get_program_info(const uint8_t * event){
+static inline const uint8_t * gattservice_subevent_bass_client_notify_receive_state_subgroup_get_program_info(const uint8_t * event){
     return &event[16];
 }
 /**
- * @brief Get field language_code from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field language_code from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return language_code
  * @note: btstack_type 3
  */
-static inline uint32_t gattservice_subevent_bass_notify_receive_state_subgroup_get_language_code(const uint8_t * event){
+static inline uint32_t gattservice_subevent_bass_client_notify_receive_state_subgroup_get_language_code(const uint8_t * event){
     return little_endian_read_24(event, 16u + event[15]);
 }
 /**
- * @brief Get field ccids_num from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field ccids_num from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return ccids_num
  * @note: btstack_type J
  */
-static inline uint8_t gattservice_subevent_bass_notify_receive_state_subgroup_get_ccids_num(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_notify_receive_state_subgroup_get_ccids_num(const uint8_t * event){
     return event[16u + event[15] + 3u];
 }
 /**
- * @brief Get field ccids from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field ccids from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return ccids
  * @note: btstack_type V
  */
-static inline const uint8_t * gattservice_subevent_bass_notify_receive_state_subgroup_get_ccids(const uint8_t * event){
+static inline const uint8_t * gattservice_subevent_bass_client_notify_receive_state_subgroup_get_ccids(const uint8_t * event){
     return &event[16u + event[15] + 3u + 1u];
 }
 /**
- * @brief Get field parental_rating from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field parental_rating from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return parental_rating
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_bass_notify_receive_state_subgroup_get_parental_rating(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_notify_receive_state_subgroup_get_parental_rating(const uint8_t * event){
     return event[16u + event[15] + 3u + 1u + event[16u + event[15] + 3u]];
 }
 /**
- * @brief Get field program_info_uri_length from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field program_info_uri_length from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return program_info_uri_length
  * @note: btstack_type J
  */
-static inline uint8_t gattservice_subevent_bass_notify_receive_state_subgroup_get_program_info_uri_length(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_notify_receive_state_subgroup_get_program_info_uri_length(const uint8_t * event){
     return event[16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u];
 }
 /**
- * @brief Get field program_info_uri from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field program_info_uri from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return program_info_uri
  * @note: btstack_type V
  */
-static inline const uint8_t * gattservice_subevent_bass_notify_receive_state_subgroup_get_program_info_uri(const uint8_t * event){
+static inline const uint8_t * gattservice_subevent_bass_client_notify_receive_state_subgroup_get_program_info_uri(const uint8_t * event){
     return &event[16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u + 1u];
 }
 /**
- * @brief Get field extended_metadata_type from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field extended_metadata_type from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return extended_metadata_type
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_bass_notify_receive_state_subgroup_get_extended_metadata_type(const uint8_t * event){
+static inline uint16_t gattservice_subevent_bass_client_notify_receive_state_subgroup_get_extended_metadata_type(const uint8_t * event){
     return little_endian_read_16(event, 16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u + 1u + event[16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u]);
 }
 /**
- * @brief Get field extended_metadata_value_length from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field extended_metadata_value_length from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return extended_metadata_value_length
  * @note: btstack_type J
  */
-static inline uint8_t gattservice_subevent_bass_notify_receive_state_subgroup_get_extended_metadata_value_length(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_notify_receive_state_subgroup_get_extended_metadata_value_length(const uint8_t * event){
     return event[16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u + 1u + event[16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u] + 2u];
 }
 /**
- * @brief Get field extended_metadata_value from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field extended_metadata_value from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return extended_metadata_value
  * @note: btstack_type V
  */
-static inline const uint8_t * gattservice_subevent_bass_notify_receive_state_subgroup_get_extended_metadata_value(const uint8_t * event){
+static inline const uint8_t * gattservice_subevent_bass_client_notify_receive_state_subgroup_get_extended_metadata_value(const uint8_t * event){
     return &event[16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u + 1u + event[16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u] + 2u + 1u];
 }
 /**
- * @brief Get field vendor_specific_metadata_type from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field vendor_specific_metadata_type from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return vendor_specific_metadata_type
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_bass_notify_receive_state_subgroup_get_vendor_specific_metadata_type(const uint8_t * event){
+static inline uint16_t gattservice_subevent_bass_client_notify_receive_state_subgroup_get_vendor_specific_metadata_type(const uint8_t * event){
     return little_endian_read_16(event, 16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u + 1u + event[16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u] + 2u + 1u + event[16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u + 1u + event[16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u] + 2u]);
 }
 /**
- * @brief Get field vendor_specific_metadata_value_length from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field vendor_specific_metadata_value_length from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return vendor_specific_metadata_value_length
  * @note: btstack_type J
  */
-static inline uint8_t gattservice_subevent_bass_notify_receive_state_subgroup_get_vendor_specific_metadata_value_length(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_notify_receive_state_subgroup_get_vendor_specific_metadata_value_length(const uint8_t * event){
     return event[16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u + 1u + event[16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u] + 2u + 1u + event[16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u + 1u + event[16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u] + 2u] + 2u];
 }
 /**
- * @brief Get field vendor_specific_metadata_value from event GATTSERVICE_SUBEVENT_BASS_NOTIFY_RECEIVE_STATE_SUBGROUP
+ * @brief Get field vendor_specific_metadata_value from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFY_RECEIVE_STATE_SUBGROUP
  * @param event packet
  * @return vendor_specific_metadata_value
  * @note: btstack_type V
  */
-static inline const uint8_t * gattservice_subevent_bass_notify_receive_state_subgroup_get_vendor_specific_metadata_value(const uint8_t * event){
+static inline const uint8_t * gattservice_subevent_bass_client_notify_receive_state_subgroup_get_vendor_specific_metadata_value(const uint8_t * event){
     return &event[16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u + 1u + event[16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u] + 2u + 1u + event[16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u + 1u + event[16u + event[15] + 3u + 1u + event[16u + event[15] + 3u] + 1u] + 2u] + 2u + 1u];
 }
 
 /**
- * @brief Get field bass_cid from event GATTSERVICE_SUBEVENT_BASS_NOTIFICATION_COMPLETE
+ * @brief Get field bass_cid from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFICATION_COMPLETE
  * @param event packet
  * @return bass_cid
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_bass_notification_complete_get_bass_cid(const uint8_t * event){
+static inline uint16_t gattservice_subevent_bass_client_notification_complete_get_bass_cid(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
- * @brief Get field source_id from event GATTSERVICE_SUBEVENT_BASS_NOTIFICATION_COMPLETE
+ * @brief Get field source_id from event GATTSERVICE_SUBEVENT_BASS_CLIENT_NOTIFICATION_COMPLETE
  * @param event packet
  * @return source_id
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_bass_notification_complete_get_source_id(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_notification_complete_get_source_id(const uint8_t * event){
     return event[5];
 }
 
@@ -14940,7 +14940,7 @@ static inline uint8_t gattservice_subevent_bass_notification_complete_get_source
  * @return bass_cid
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_bass_source_operation_complete_get_bass_cid(const uint8_t * event){
+static inline uint16_t gattservice_subevent_bass_client_source_operation_complete_get_bass_cid(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
@@ -14949,7 +14949,7 @@ static inline uint16_t gattservice_subevent_bass_source_operation_complete_get_b
  * @return status
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_bass_source_operation_complete_get_status(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_source_operation_complete_get_status(const uint8_t * event){
     return event[5];
 }
 /**
@@ -14958,7 +14958,7 @@ static inline uint8_t gattservice_subevent_bass_source_operation_complete_get_st
  * @return opcode
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_bass_source_operation_complete_get_opcode(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_source_operation_complete_get_opcode(const uint8_t * event){
     return event[6];
 }
 /**
@@ -14967,7 +14967,7 @@ static inline uint8_t gattservice_subevent_bass_source_operation_complete_get_op
  * @return source_id
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_bass_source_operation_complete_get_source_id(const uint8_t * event){
+static inline uint8_t gattservice_subevent_bass_client_source_operation_complete_get_source_id(const uint8_t * event){
     return event[7];
 }
 
@@ -15503,7 +15503,7 @@ static inline hci_con_handle_t gattservice_subevent_csis_server_disconnected_get
  * @return con_handle
  * @note: btstack_type H
  */
-static inline hci_con_handle_t gattservice_subevent_csis_remote_server_connected_get_con_handle(const uint8_t * event){
+static inline hci_con_handle_t gattservice_subevent_csis_client_connected_get_con_handle(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
@@ -15512,7 +15512,7 @@ static inline hci_con_handle_t gattservice_subevent_csis_remote_server_connected
  * @return csis_cid
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_csis_remote_server_connected_get_csis_cid(const uint8_t * event){
+static inline uint16_t gattservice_subevent_csis_client_connected_get_csis_cid(const uint8_t * event){
     return little_endian_read_16(event, 5);
 }
 /**
@@ -15521,7 +15521,7 @@ static inline uint16_t gattservice_subevent_csis_remote_server_connected_get_csi
  * @return status
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_csis_remote_server_connected_get_status(const uint8_t * event){
+static inline uint8_t gattservice_subevent_csis_client_connected_get_status(const uint8_t * event){
     return event[7];
 }
 
@@ -15531,7 +15531,7 @@ static inline uint8_t gattservice_subevent_csis_remote_server_connected_get_stat
  * @return csis_cid
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_csis_remote_server_disconnected_get_csis_cid(const uint8_t * event){
+static inline uint16_t gattservice_subevent_csis_client_disconnected_get_csis_cid(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 
@@ -15541,7 +15541,7 @@ static inline uint16_t gattservice_subevent_csis_remote_server_disconnected_get_
  * @return csis_cid
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_csis_remote_lock_write_complete_get_csis_cid(const uint8_t * event){
+static inline uint16_t gattservice_subevent_csis_client_lock_write_complete_get_csis_cid(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
@@ -15550,7 +15550,7 @@ static inline uint16_t gattservice_subevent_csis_remote_lock_write_complete_get_
  * @return status
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_csis_remote_lock_write_complete_get_status(const uint8_t * event){
+static inline uint8_t gattservice_subevent_csis_client_lock_write_complete_get_status(const uint8_t * event){
     return event[5];
 }
 /**
@@ -15559,7 +15559,7 @@ static inline uint8_t gattservice_subevent_csis_remote_lock_write_complete_get_s
  * @return lock
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_csis_remote_lock_write_complete_get_lock(const uint8_t * event){
+static inline uint8_t gattservice_subevent_csis_client_lock_write_complete_get_lock(const uint8_t * event){
     return event[6];
 }
 
@@ -15569,7 +15569,7 @@ static inline uint8_t gattservice_subevent_csis_remote_lock_write_complete_get_l
  * @return csis_cid
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_csis_remote_lock_get_csis_cid(const uint8_t * event){
+static inline uint16_t gattservice_subevent_csis_client_remote_lock_get_csis_cid(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
@@ -15578,7 +15578,7 @@ static inline uint16_t gattservice_subevent_csis_remote_lock_get_csis_cid(const 
  * @return status
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_csis_remote_lock_get_status(const uint8_t * event){
+static inline uint8_t gattservice_subevent_csis_client_remote_lock_get_status(const uint8_t * event){
     return event[5];
 }
 /**
@@ -15587,7 +15587,7 @@ static inline uint8_t gattservice_subevent_csis_remote_lock_get_status(const uin
  * @return lock
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_csis_remote_lock_get_lock(const uint8_t * event){
+static inline uint8_t gattservice_subevent_csis_client_remote_lock_get_lock(const uint8_t * event){
     return event[6];
 }
 
@@ -15597,7 +15597,7 @@ static inline uint8_t gattservice_subevent_csis_remote_lock_get_lock(const uint8
  * @return csis_cid
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_csis_remote_coordinated_set_size_get_csis_cid(const uint8_t * event){
+static inline uint16_t gattservice_subevent_csis_client_coordinated_set_size_get_csis_cid(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
@@ -15606,7 +15606,7 @@ static inline uint16_t gattservice_subevent_csis_remote_coordinated_set_size_get
  * @return status
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_csis_remote_coordinated_set_size_get_status(const uint8_t * event){
+static inline uint8_t gattservice_subevent_csis_client_coordinated_set_size_get_status(const uint8_t * event){
     return event[5];
 }
 /**
@@ -15615,7 +15615,7 @@ static inline uint8_t gattservice_subevent_csis_remote_coordinated_set_size_get_
  * @return coordinated_set_size
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_csis_remote_coordinated_set_size_get_coordinated_set_size(const uint8_t * event){
+static inline uint8_t gattservice_subevent_csis_client_coordinated_set_size_get_coordinated_set_size(const uint8_t * event){
     return event[6];
 }
 
@@ -15625,7 +15625,7 @@ static inline uint8_t gattservice_subevent_csis_remote_coordinated_set_size_get_
  * @return csis_cid
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_csis_remote_rank_get_csis_cid(const uint8_t * event){
+static inline uint16_t gattservice_subevent_csis_client_rank_get_csis_cid(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
@@ -15634,7 +15634,7 @@ static inline uint16_t gattservice_subevent_csis_remote_rank_get_csis_cid(const 
  * @return status
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_csis_remote_rank_get_status(const uint8_t * event){
+static inline uint8_t gattservice_subevent_csis_client_rank_get_status(const uint8_t * event){
     return event[5];
 }
 /**
@@ -15643,7 +15643,7 @@ static inline uint8_t gattservice_subevent_csis_remote_rank_get_status(const uin
  * @return rank
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_csis_remote_rank_get_rank(const uint8_t * event){
+static inline uint8_t gattservice_subevent_csis_client_rank_get_rank(const uint8_t * event){
     return event[6];
 }
 
@@ -15653,7 +15653,7 @@ static inline uint8_t gattservice_subevent_csis_remote_rank_get_rank(const uint8
  * @return csis_cid
  * @note: btstack_type 2
  */
-static inline uint16_t gattservice_subevent_csis_remote_sirk_get_csis_cid(const uint8_t * event){
+static inline uint16_t gattservice_subevent_csis_client_sirk_get_csis_cid(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 /**
@@ -15662,7 +15662,7 @@ static inline uint16_t gattservice_subevent_csis_remote_sirk_get_csis_cid(const 
  * @return status
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_csis_remote_sirk_get_status(const uint8_t * event){
+static inline uint8_t gattservice_subevent_csis_client_sirk_get_status(const uint8_t * event){
     return event[5];
 }
 /**
@@ -15671,7 +15671,7 @@ static inline uint8_t gattservice_subevent_csis_remote_sirk_get_status(const uin
  * @return sirk_type
  * @note: btstack_type 1
  */
-static inline uint8_t gattservice_subevent_csis_remote_sirk_get_sirk_type(const uint8_t * event){
+static inline uint8_t gattservice_subevent_csis_client_sirk_get_sirk_type(const uint8_t * event){
     return event[6];
 }
 /**
@@ -15680,7 +15680,7 @@ static inline uint8_t gattservice_subevent_csis_remote_sirk_get_sirk_type(const 
  * @param Pointer to storage for sirk
  * @note: btstack_type K
  */
-static inline void gattservice_subevent_csis_remote_sirk_get_sirk(const uint8_t * event, uint8_t * sirk){
+static inline void gattservice_subevent_csis_client_sirk_get_sirk(const uint8_t * event, uint8_t * sirk){
     reverse_bytes(&event[7], sirk, 16);
 }
 
@@ -15836,6 +15836,35 @@ static inline uint8_t gattservice_subevent_vcs_server_connected_get_status(const
  * @note: btstack_type H
  */
 static inline hci_con_handle_t gattservice_subevent_vcs_server_disconnected_get_con_handle(const uint8_t * event){
+    return little_endian_read_16(event, 3);
+}
+
+/**
+ * @brief Get field con_handle from event GATTSERVICE_SUBEVENT_VOCS_SERVER_CONNECTED
+ * @param event packet
+ * @return con_handle
+ * @note: btstack_type H
+ */
+static inline hci_con_handle_t gattservice_subevent_vocs_server_connected_get_con_handle(const uint8_t * event){
+    return little_endian_read_16(event, 3);
+}
+/**
+ * @brief Get field status from event GATTSERVICE_SUBEVENT_VOCS_SERVER_CONNECTED
+ * @param event packet
+ * @return status
+ * @note: btstack_type 1
+ */
+static inline uint8_t gattservice_subevent_vocs_server_connected_get_status(const uint8_t * event){
+    return event[5];
+}
+
+/**
+ * @brief Get field con_handle from event GATTSERVICE_SUBEVENT_VOCS_SERVER_DISCONNECTED
+ * @param event packet
+ * @return con_handle
+ * @note: btstack_type H
+ */
+static inline hci_con_handle_t gattservice_subevent_vocs_server_disconnected_get_con_handle(const uint8_t * event){
     return little_endian_read_16(event, 3);
 }
 
