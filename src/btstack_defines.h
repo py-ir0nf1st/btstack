@@ -4206,14 +4206,14 @@ typedef uint8_t sm_key_t[16];
  * @param subevent_code
  * @param con_handle
 */
-#define GATTSERVICE_SUBEVENT_BASS_REMOTE_SCAN_STOPPED                         0x26u
+#define GATTSERVICE_SUBEVENT_BASS_SERVER_SCAN_STOPPED                         0x26u
 
 /**
  * @format 1H
  * @param subevent_code
  * @param con_handle
 */
-#define GATTSERVICE_SUBEVENT_BASS_REMOTE_SCAN_STARTED                          0x27u
+#define GATTSERVICE_SUBEVENT_BASS_SERVER_SCAN_STARTED                          0x27u
 
 /**
  * @format 1H1K
@@ -4222,7 +4222,7 @@ typedef uint8_t sm_key_t[16];
  * @param source_id
  * @param broadcast_code
 */
-#define GATTSERVICE_SUBEVENT_BASS_BROADCAST_CODE                               0x28u
+#define GATTSERVICE_SUBEVENT_BASS_SERVER_BROADCAST_CODE                               0x28u
 
 /**
  * @format 1H11
@@ -4231,7 +4231,7 @@ typedef uint8_t sm_key_t[16];
  * @param source_id
  * @param pa_sync
  */
-#define GATTSERVICE_SUBEVENT_BASS_SOURCE_ADDED                                 0x29u
+#define GATTSERVICE_SUBEVENT_BASS_SERVER_SOURCE_ADDED                                 0x29u
 
 /**
  * @format 1H11
@@ -4240,7 +4240,7 @@ typedef uint8_t sm_key_t[16];
  * @param source_id
  * @param pa_sync
  */
-#define GATTSERVICE_SUBEVENT_BASS_SOURCE_MODIFIED                              0x30u
+#define GATTSERVICE_SUBEVENT_BASS_SERVER_SOURCE_MODIFIED                              0x30u
 
 /**
  * @format 1H11
@@ -4249,7 +4249,7 @@ typedef uint8_t sm_key_t[16];
  * @param source_id
  * @param pa_sync
  */
-#define GATTSERVICE_SUBEVENT_BASS_SOURCE_DELETED                               0x31u
+#define GATTSERVICE_SUBEVENT_BASS_SERVER_SOURCE_DELETED                               0x31u
 
 /**
  * @format 1H111122111421
@@ -4389,7 +4389,7 @@ typedef uint8_t sm_key_t[16];
 */
 #define GATTSERVICE_SUBEVENT_ASCS_CLIENT_STREAMENDPOINT_STATE                         0x39u
 
-// used by server to emit control point operation operation
+// used by server to emit control point operation
 /**
  * @format 1H1
  * @param subevent_code
@@ -4794,6 +4794,21 @@ typedef uint8_t sm_key_t[16];
  * @param con_handle
 */
 #define GATTSERVICE_SUBEVENT_AICS_SERVER_DISCONNECTED                           0x69u
+
+/**
+ * @format 1H1
+ * @param subevent_code
+ * @param con_handle
+ * @param status
+*/
+#define GATTSERVICE_SUBEVENT_BASS_SERVER_CONNECTED                              0x70u
+
+/**
+ * @format 1H
+ * @param subevent_code
+ * @param con_handle
+*/
+#define GATTSERVICE_SUBEVENT_BASS_SERVER_DISCONNECTED                           0x71u
 
 // MAP Meta Event Group
 
