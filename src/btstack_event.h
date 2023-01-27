@@ -15498,7 +15498,7 @@ static inline hci_con_handle_t gattservice_subevent_csis_server_disconnected_get
 }
 
 /**
- * @brief Get field con_handle from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_SERVER_CONNECTED
+ * @brief Get field con_handle from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_CONNECTED
  * @param event packet
  * @return con_handle
  * @note: btstack_type H
@@ -15507,7 +15507,7 @@ static inline hci_con_handle_t gattservice_subevent_csis_remote_server_connected
     return little_endian_read_16(event, 3);
 }
 /**
- * @brief Get field csis_cid from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_SERVER_CONNECTED
+ * @brief Get field csis_cid from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_CONNECTED
  * @param event packet
  * @return csis_cid
  * @note: btstack_type 2
@@ -15516,7 +15516,7 @@ static inline uint16_t gattservice_subevent_csis_remote_server_connected_get_csi
     return little_endian_read_16(event, 5);
 }
 /**
- * @brief Get field status from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_SERVER_CONNECTED
+ * @brief Get field status from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_CONNECTED
  * @param event packet
  * @return status
  * @note: btstack_type 1
@@ -15526,7 +15526,7 @@ static inline uint8_t gattservice_subevent_csis_remote_server_connected_get_stat
 }
 
 /**
- * @brief Get field csis_cid from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_SERVER_DISCONNECTED
+ * @brief Get field csis_cid from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_DISCONNECTED
  * @param event packet
  * @return csis_cid
  * @note: btstack_type 2
@@ -15536,7 +15536,7 @@ static inline uint16_t gattservice_subevent_csis_remote_server_disconnected_get_
 }
 
 /**
- * @brief Get field csis_cid from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_LOCK_WRITE_COMPLETE
+ * @brief Get field csis_cid from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_LOCK_WRITE_COMPLETE
  * @param event packet
  * @return csis_cid
  * @note: btstack_type 2
@@ -15545,7 +15545,7 @@ static inline uint16_t gattservice_subevent_csis_remote_lock_write_complete_get_
     return little_endian_read_16(event, 3);
 }
 /**
- * @brief Get field status from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_LOCK_WRITE_COMPLETE
+ * @brief Get field status from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_LOCK_WRITE_COMPLETE
  * @param event packet
  * @return status
  * @note: btstack_type 1
@@ -15554,7 +15554,7 @@ static inline uint8_t gattservice_subevent_csis_remote_lock_write_complete_get_s
     return event[5];
 }
 /**
- * @brief Get field lock from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_LOCK_WRITE_COMPLETE
+ * @brief Get field lock from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_LOCK_WRITE_COMPLETE
  * @param event packet
  * @return lock
  * @note: btstack_type 1
@@ -15564,7 +15564,7 @@ static inline uint8_t gattservice_subevent_csis_remote_lock_write_complete_get_l
 }
 
 /**
- * @brief Get field csis_cid from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_LOCK
+ * @brief Get field csis_cid from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_REMOTE_LOCK
  * @param event packet
  * @return csis_cid
  * @note: btstack_type 2
@@ -15573,7 +15573,7 @@ static inline uint16_t gattservice_subevent_csis_remote_lock_get_csis_cid(const 
     return little_endian_read_16(event, 3);
 }
 /**
- * @brief Get field status from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_LOCK
+ * @brief Get field status from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_REMOTE_LOCK
  * @param event packet
  * @return status
  * @note: btstack_type 1
@@ -15582,7 +15582,7 @@ static inline uint8_t gattservice_subevent_csis_remote_lock_get_status(const uin
     return event[5];
 }
 /**
- * @brief Get field lock from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_LOCK
+ * @brief Get field lock from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_REMOTE_LOCK
  * @param event packet
  * @return lock
  * @note: btstack_type 1
@@ -15592,7 +15592,7 @@ static inline uint8_t gattservice_subevent_csis_remote_lock_get_lock(const uint8
 }
 
 /**
- * @brief Get field csis_cid from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_COORDINATED_SET_SIZE
+ * @brief Get field csis_cid from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_COORDINATED_SET_SIZE
  * @param event packet
  * @return csis_cid
  * @note: btstack_type 2
@@ -15601,7 +15601,7 @@ static inline uint16_t gattservice_subevent_csis_remote_coordinated_set_size_get
     return little_endian_read_16(event, 3);
 }
 /**
- * @brief Get field status from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_COORDINATED_SET_SIZE
+ * @brief Get field status from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_COORDINATED_SET_SIZE
  * @param event packet
  * @return status
  * @note: btstack_type 1
@@ -15610,7 +15610,7 @@ static inline uint8_t gattservice_subevent_csis_remote_coordinated_set_size_get_
     return event[5];
 }
 /**
- * @brief Get field coordinated_set_size from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_COORDINATED_SET_SIZE
+ * @brief Get field coordinated_set_size from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_COORDINATED_SET_SIZE
  * @param event packet
  * @return coordinated_set_size
  * @note: btstack_type 1
@@ -15620,7 +15620,7 @@ static inline uint8_t gattservice_subevent_csis_remote_coordinated_set_size_get_
 }
 
 /**
- * @brief Get field csis_cid from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_RANK
+ * @brief Get field csis_cid from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_RANK
  * @param event packet
  * @return csis_cid
  * @note: btstack_type 2
@@ -15629,7 +15629,7 @@ static inline uint16_t gattservice_subevent_csis_remote_rank_get_csis_cid(const 
     return little_endian_read_16(event, 3);
 }
 /**
- * @brief Get field status from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_RANK
+ * @brief Get field status from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_RANK
  * @param event packet
  * @return status
  * @note: btstack_type 1
@@ -15638,7 +15638,7 @@ static inline uint8_t gattservice_subevent_csis_remote_rank_get_status(const uin
     return event[5];
 }
 /**
- * @brief Get field rank from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_RANK
+ * @brief Get field rank from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_RANK
  * @param event packet
  * @return rank
  * @note: btstack_type 1
@@ -15648,7 +15648,7 @@ static inline uint8_t gattservice_subevent_csis_remote_rank_get_rank(const uint8
 }
 
 /**
- * @brief Get field csis_cid from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_SIRK
+ * @brief Get field csis_cid from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_SIRK
  * @param event packet
  * @return csis_cid
  * @note: btstack_type 2
@@ -15657,7 +15657,7 @@ static inline uint16_t gattservice_subevent_csis_remote_sirk_get_csis_cid(const 
     return little_endian_read_16(event, 3);
 }
 /**
- * @brief Get field status from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_SIRK
+ * @brief Get field status from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_SIRK
  * @param event packet
  * @return status
  * @note: btstack_type 1
@@ -15666,7 +15666,7 @@ static inline uint8_t gattservice_subevent_csis_remote_sirk_get_status(const uin
     return event[5];
 }
 /**
- * @brief Get field sirk_type from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_SIRK
+ * @brief Get field sirk_type from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_SIRK
  * @param event packet
  * @return sirk_type
  * @note: btstack_type 1
@@ -15675,7 +15675,7 @@ static inline uint8_t gattservice_subevent_csis_remote_sirk_get_sirk_type(const 
     return event[6];
 }
 /**
- * @brief Get field sirk from event GATTSERVICE_SUBEVENT_CSIS_REMOTE_SIRK
+ * @brief Get field sirk from event GATTSERVICE_SUBEVENT_CSIS_CLIENT_SIRK
  * @param event packet
  * @param Pointer to storage for sirk
  * @note: btstack_type K
