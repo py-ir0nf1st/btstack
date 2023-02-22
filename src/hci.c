@@ -9003,6 +9003,10 @@ uint16_t hci_get_manufacturer(void){
     return hci_stack->manufacturer;
 }
 
+void hci_set_manufacturer(uint16_t company_id){
+    hci_stack->manufacturer = company_id;
+}
+
 #ifdef ENABLE_BLE
 static sm_connection_t * sm_get_connection_for_handle(hci_con_handle_t con_handle){
     hci_connection_t * hci_con = hci_connection_for_handle(con_handle);

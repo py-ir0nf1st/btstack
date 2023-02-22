@@ -1700,10 +1700,17 @@ uint8_t gap_periodic_advertising_create_sync_cancel(void);
 uint8_t gap_periodic_advertising_terminate_sync(uint16_t sync_handle);
 
 /**
- * @brief Get Manufactured
- * @return manufacturer id
+ * @brief Get Controller Manufacturer
+ * @returns company_id - see bluetooth_company_id.h
  */
 uint16_t hci_get_manufacturer(void);
+
+/**
+ * @brief Set Controller Manufacturer
+ * @note needed for Bluetooth Controllers that won't respond to HCI Reset, HCI Read Local Version after power up
+ * @param company_id see bluetooth_company_id.h
+ */
+void hci_set_manufacturer(uint16_t company_id);
 
 // Only for PTS testing
 
