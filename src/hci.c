@@ -1833,6 +1833,15 @@ static void hci_initializing_run(void){
             hci_send_cmd_packet(hci_stack->hci_packet_buffer, 3u + hci_stack->hci_packet_buffer[2u]);
             break;
         }
+        case HCI_INIT_RTK_READ_LMP_SUBVERSION:
+            hci_state_reset();
+            hci_stack->substate = HCI_INIT_W4_RTK_READ_LMP_SUBVERSION;
+            hci_send_cmd(&hci_rtk_read_card_info, 0x10, 0x38, 0x04, 0x28, 0x80);
+            break;
+        case HCI_INIT_RTK_READ_HCI_REVISION:
+            hci_stack->substate = HCI_INIT_W4_RTK_READ_HCI_REVISION;
+            hci_send_cmd(&hci_rtk_read_card_info, 0x10, 0x3A, 0x04, 0x28, 0x80);
+            break;
         case HCI_INIT_SET_BD_ADDR:
             log_info("Set Public BD ADDR to %s", bd_addr_to_str(hci_stack->custom_bd_addr));
             hci_stack->chipset->set_bd_addr_command(hci_stack->custom_bd_addr, hci_stack->hci_packet_buffer);
@@ -2373,6 +2382,20 @@ static void hci_initializing_event_handler(const uint8_t * packet, uint16_t size
         case HCI_INIT_W4_CUSTOM_INIT_CSR_WARM_BOOT:
             btstack_run_loop_remove_timer(&hci_stack->timeout);
             hci_stack->substate = HCI_INIT_CUSTOM_INIT;
+            return;
+        case HCI_INIT_W4_RTK_READ_LMP_SUBVERSION:
+            if (little_endian_read_16(hci_event_command_complete_get_return_parameters(packet), 1) == 0x8822){
+                hci_stack->substate = HCI_INIT_RTK_READ_HCI_REVISION;
+            } else {
+                hci_stack->substate = HCI_INIT_SEND_RESET;
+            }
+            return;
+        case HCI_INIT_W4_RTK_READ_HCI_REVISION:
+            if (little_endian_read_16(hci_event_command_complete_get_return_parameters(packet), 1) == 0x000e){
+                hci_stack->substate = HCI_INIT_CUSTOM_INIT;
+            } else {
+                hci_stack->substate = HCI_INIT_SEND_RESET;
+            }
             return;
         case HCI_INIT_W4_CUSTOM_INIT:
             // repeat custom init
@@ -4906,7 +4929,15 @@ static void hci_power_enter_initializing_state(void){
     hci_stack->num_cmd_packets = 1; // assume that one cmd can be sent
     hci_stack->hci_packet_buffer_reserved = false;
     hci_stack->state = HCI_STATE_INITIALIZING;
-    hci_stack->substate = HCI_INIT_SEND_RESET;
+
+    switch (hci_stack->manufacturer){
+        case BLUETOOTH_COMPANY_ID_REALTEK_SEMICONDUCTOR_CORPORATION:
+            hci_stack->substate = HCI_INIT_RTK_READ_LMP_SUBVERSION;
+            break;
+        default:
+            hci_stack->substate = HCI_INIT_SEND_RESET;
+            break;
+    }
 }
 
 static void hci_power_enter_halting_state(void){
