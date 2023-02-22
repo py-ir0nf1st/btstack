@@ -2610,3 +2610,10 @@ const hci_cmd_t hci_ti_write_hardware_register = {
 const hci_cmd_t hci_rtk_configure_sco_routing = {
     HCI_OPCODE_HCI_TRK_CONFIGURE_SCO_ROUTING, "111111111"
 };
+
+/**
+* @brief Read Card Information
+*/
+const hci_cmd_t hci_rtk_read_card_info = {
+    HCI_OPCODE_HCI_RTK_READ_CARD_INFO, "11111"
+};
