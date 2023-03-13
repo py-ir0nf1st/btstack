@@ -136,10 +136,8 @@ struct rtb_new_patch_hdr {
 
 enum {
     STATE_READ_ROM_VERSION,
-    STATE_READ_CHIP_TYPE,
-    STATE_READ_CHIP_VER,
-    STATE_READ_LMP_SUB_VERSION,
     STATE_READ_SEC_PROJ,
+    STATE_W4_SEC_PROJ,
     STATE_LOAD_FIRMWARE,
     STATE_RESET,
     STATE_DONE,
@@ -362,7 +360,6 @@ static uint16_t                               lmp_subversion;
 static uint16_t                               product_id;
 static patch_info *                           patch;
 static uint8_t                                g_key_id = 0;
-static uint16_t                               subopcode = 0;
 
 #ifdef HAVE_POSIX_FILE_IO
 static const char *firmware_folder_path = ".";
@@ -396,9 +393,10 @@ static void hci_packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *p
         }
         break;
     case HCI_OPCODE_HCI_RTK_READ_CARD_INFO:
-        if (subopcode == READ_SEC_PROJ) {
+        if (state == STATE_W4_SEC_PROJ) {
             g_key_id = return_para[1];
             printf("Received key id 0x%02x\n", g_key_id);
+            state = STATE_LOAD_FIRMWARE;
         }
         break;
     default:
@@ -913,20 +911,7 @@ static uint8_t update_firmware(const char *firmware, const char *config, uint8_t
 
 #endif  // HAVE_POSIX_FILE_IO
 
-int rtb_vendor_read(uint8_t* hci_cmd_buffer, uint16_t subopc)
-{
-    uint8_t cmd_sec_buf[] = {
-        0x61, 0xfc, 0x05, 0x10, 0xA4, 0x0D, 0x00, 0xb0
-    };
-    switch (subopc) {
-    case READ_SEC_PROJ:
-        memcpy(hci_cmd_buffer, cmd_sec_buf, sizeof(cmd_sec_buf));
-        break;
-    default:
-        break;
-    }
-    return 0;
-}
+static const uint8_t hci_realtek_read_sec_proj[] = {0x61, 0xfc, 0x05, 0x10, 0xA4, 0x0D, 0x00, 0xb0 };
 
 static btstack_chipset_result_t chipset_next_command(uint8_t *hci_cmd_buffer) {
 #ifdef HAVE_POSIX_FILE_IO
@@ -939,9 +924,8 @@ static btstack_chipset_result_t chipset_next_command(uint8_t *hci_cmd_buffer) {
             state = STATE_READ_SEC_PROJ;
             break;
         case STATE_READ_SEC_PROJ:
-            subopcode = READ_SEC_PROJ;
-            rtb_vendor_read(hci_cmd_buffer, subopcode);
-            state = STATE_LOAD_FIRMWARE;
+            memcpy(hci_cmd_buffer, hci_realtek_read_sec_proj, sizeof(hci_realtek_read_sec_proj));
+            state = STATE_W4_SEC_PROJ;
             break;
         case STATE_LOAD_FIRMWARE:
             if (lmp_subversion != ROM_LMP_8723a) {
