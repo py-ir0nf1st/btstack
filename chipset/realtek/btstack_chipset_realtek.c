@@ -156,7 +156,7 @@ typedef struct {
     uint8_t chip_type;
 } patch_info;
 
-static patch_info fw_patch_table[] = {
+static const patch_info fw_patch_table[] = {
 /* { pid, lmp_sub, mp_fw_name, fw_name, config_name, chip_type } */
     {0x1724, 0x1200, "mp_rtl8723a_fw", "rtl8723a_fw", "rtl8723a_config", NULL, 0, RTLPREVIOUS},	/* RTL8723A */
     {0x8723, 0x1200, "mp_rtl8723a_fw", "rtl8723a_fw", "rtl8723a_config", NULL, 0, RTLPREVIOUS},	/* 8723AE */
@@ -338,7 +338,7 @@ static patch_info fw_patch_table[] = {
     {0, 0, NULL, NULL, NULL, NULL, 0, 0}
 };
 
-uint16_t project_id[] = {
+static uint16_t project_id[] = {
     ROM_LMP_8723a, ROM_LMP_8723b, ROM_LMP_8821a, ROM_LMP_8761a, ROM_LMP_NONE,
     ROM_LMP_NONE,  ROM_LMP_NONE,  ROM_LMP_NONE,  ROM_LMP_8822b, ROM_LMP_8723b, /* RTL8723DU */
     ROM_LMP_8821a,                                                             /* RTL8821CU */
@@ -358,7 +358,7 @@ static uint8_t                                state = STATE_READ_ROM_VERSION;
 static uint8_t                                rom_version;
 static uint16_t                               lmp_subversion;
 static uint16_t                               product_id;
-static patch_info *                           patch;
+static const patch_info *                     patch;
 static uint8_t                                g_key_id = 0;
 
 #ifdef HAVE_POSIX_FILE_IO
@@ -370,9 +370,9 @@ static char        firmware_file[1000];
 static char        config_file[1000];
 #endif
 
-const uint8_t FW_SIGNATURE[8]        = {0x52, 0x65, 0x61, 0x6C, 0x74, 0x65, 0x63, 0x68};
-const uint8_t FW_SIGNATURE_NEW[8]    = {0x52, 0x54, 0x42, 0x54, 0x43, 0x6F, 0x72, 0x65};
-const uint8_t EXTENSION_SIGNATURE[4] = {0x51, 0x04, 0xFD, 0x77};
+static const uint8_t FW_SIGNATURE[8]        = {0x52, 0x65, 0x61, 0x6C, 0x74, 0x65, 0x63, 0x68};
+static const uint8_t FW_SIGNATURE_NEW[8]    = {0x52, 0x54, 0x42, 0x54, 0x43, 0x6F, 0x72, 0x65};
+static const uint8_t EXTENSION_SIGNATURE[4] = {0x51, 0x04, 0xFD, 0x77};
 
 static void hci_packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size) {
     UNUSED(channel);
@@ -1009,5 +1009,4 @@ static const btstack_chipset_t btstack_chipset_realtek = {
     NULL,  // chipset_set_bd_addr_command not supported or implemented
 };
 
-// MARK: public API
 const btstack_chipset_t *btstack_chipset_realtek_instance(void) { return &btstack_chipset_realtek; }
