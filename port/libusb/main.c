@@ -117,11 +117,6 @@ static void local_version_information_handler(uint8_t * packet){
             // sm required to setup static random Bluetooth address
             sm_init();
             break;
-        case BLUETOOTH_COMPANY_ID_REALTEK_SEMICONDUCTOR_CORPORATION:
-            printf("- Realtek controller - provide firmware and config\n");
-            btstack_chipset_realtek_set_lmp_subversion(lmp_subversion);
-            hci_set_chipset(btstack_chipset_realtek_instance());
-            break;
         default:
             break;
     }
@@ -154,6 +149,8 @@ static void packet_handler (uint8_t packet_type, uint16_t channel, uint8_t *pack
 
             // set Product ID for Realtek Controllers and use Realtek-specific stack startup
             if (vendor_id == USB_VENDOR_ID_REALTEK) {
+                printf("Realtek Controller - requires firmware and config download\n");
+                hci_set_chipset(btstack_chipset_realtek_instance());
                 hci_set_manufacturer(BLUETOOTH_COMPANY_ID_REALTEK_SEMICONDUCTOR_CORPORATION);
                 btstack_chipset_realtek_set_product_id(product_id);
             }
