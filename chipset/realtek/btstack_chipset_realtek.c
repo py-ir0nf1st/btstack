@@ -377,30 +377,34 @@ static const uint8_t EXTENSION_SIGNATURE[4] = {0x51, 0x04, 0xFD, 0x77};
 static void hci_packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *packet, uint16_t size) {
     UNUSED(channel);
     UNUSED(size);
-    if (packet_type != HCI_EVENT_PACKET || hci_event_packet_get_type(packet) != HCI_EVENT_COMMAND_COMPLETE) {
+    if (packet_type != HCI_EVENT_PACKET) {
         return;
     }
+    if (hci_event_packet_get_type(packet) != HCI_EVENT_COMMAND_COMPLETE) {
+        return;
+    }
+
     uint16_t opcode = hci_event_command_complete_get_command_opcode(packet);
     const uint8_t * return_para = hci_event_command_complete_get_return_parameters(packet);
     switch (opcode) {
-    case HCI_READ_ROM_VERSION:
-        rom_version = return_para[1];
-        log_info("Received ROM version 0x%02x", rom_version);
-        printf("Received ROM version 0x%02x\n", rom_version);
-        if (patch->lmp_sub != lmp_subversion) {
-            printf("Firmware already exists\n");
-            state = STATE_DONE;
-        }
-        break;
-    case HCI_OPCODE_HCI_RTK_READ_CARD_INFO:
-        if (state == STATE_W4_SEC_PROJ) {
-            g_key_id = return_para[1];
-            printf("Received key id 0x%02x\n", g_key_id);
-            state = STATE_LOAD_FIRMWARE;
-        }
-        break;
-    default:
-        break;
+        case HCI_READ_ROM_VERSION:
+            rom_version = return_para[1];
+            log_info("Received ROM version 0x%02x", rom_version);
+            printf("Received ROM version 0x%02x\n", rom_version);
+            if (patch->lmp_sub != lmp_subversion) {
+                printf("Firmware already exists\n");
+                state = STATE_DONE;
+            }
+            break;
+        case HCI_OPCODE_HCI_RTK_READ_CARD_INFO:
+            if (state == STATE_W4_SEC_PROJ) {
+                g_key_id = return_para[1];
+                printf("Received key id 0x%02x\n", g_key_id);
+                state = STATE_LOAD_FIRMWARE;
+            }
+            break;
+        default:
+            break;
     }
 }
 
