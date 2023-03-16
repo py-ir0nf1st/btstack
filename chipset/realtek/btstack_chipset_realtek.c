@@ -65,16 +65,14 @@
 #define ROM_LMP_NONE 0x0000
 #define ROM_LMP_8723a 0x1200
 #define ROM_LMP_8723b 0x8723
-#define ROM_LMP_8821a 0X8821
-#define ROM_LMP_8761a 0X8761
-#define ROM_LMP_8822b 0X8822
+#define ROM_LMP_8821a 0x8821
+#define ROM_LMP_8761a 0x8761
+#define ROM_LMP_8822b 0x8822
 #define ROM_LMP_8852a 0x8852
 #define ROM_LMP_8851b 0x8851
 
-#define HCI_DOWNLOAD_FW 0xFC20
-#define HCI_READ_ROM_VERSION 0xFC6D
-#define HCI_READ_LMP_VERSION 0x1001
-#define HCI_RESET 0x0C03
+#define HCI_OPCODE_HCI_RTK_DOWNLOAD_FW 0xFC20
+#define HCI_OPCODE_HCI_RTK_READ_ROM_VERSION 0xFC6D
 
 #define READ_SEC_PROJ 4
 
@@ -387,7 +385,7 @@ static void hci_packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *p
     uint16_t opcode = hci_event_command_complete_get_command_opcode(packet);
     const uint8_t * return_para = hci_event_command_complete_get_return_parameters(packet);
     switch (opcode) {
-        case HCI_READ_ROM_VERSION:
+        case HCI_OPCODE_HCI_RTK_READ_ROM_VERSION:
             rom_version = return_para[1];
             log_info("Received ROM version 0x%02x", rom_version);
             printf("Received ROM version 0x%02x\n", rom_version);
@@ -894,7 +892,7 @@ static uint8_t update_firmware(const char *firmware, const char *config, uint8_t
     }
 
     if (len) {
-        FILL_COMMAND(hci_cmd_buffer, HCI_DOWNLOAD_FW);
+        FILL_COMMAND(hci_cmd_buffer, HCI_OPCODE_HCI_RTK_DOWNLOAD_FW);
         FILL_LENGTH(hci_cmd_buffer, len + 1);
         FILL_INDEX(hci_cmd_buffer, index);
         FILL_FW_DATA(hci_cmd_buffer, patch_buf, fw_ptr, len);
@@ -923,7 +921,7 @@ static btstack_chipset_result_t chipset_next_command(uint8_t *hci_cmd_buffer) {
     while (true) {
         switch (state) {
         case STATE_READ_ROM_VERSION:
-            FILL_COMMAND(hci_cmd_buffer, HCI_READ_ROM_VERSION);
+            FILL_COMMAND(hci_cmd_buffer, HCI_OPCODE_HCI_RTK_READ_ROM_VERSION);
             FILL_LENGTH(hci_cmd_buffer, 0);
             state = STATE_READ_SEC_PROJ;
             break;
@@ -944,7 +942,7 @@ static btstack_chipset_result_t chipset_next_command(uint8_t *hci_cmd_buffer) {
             // we are done fall through
             state = STATE_RESET;
         case STATE_RESET:
-            FILL_COMMAND(hci_cmd_buffer, HCI_RESET);
+            FILL_COMMAND(hci_cmd_buffer, HCI_OPCODE_HCI_RESET);
             FILL_LENGTH(hci_cmd_buffer, 0);
             state = STATE_DONE;
             break;
