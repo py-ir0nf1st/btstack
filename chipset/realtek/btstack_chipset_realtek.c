@@ -385,6 +385,9 @@ static void hci_packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *p
     uint16_t opcode = hci_event_command_complete_get_command_opcode(packet);
     const uint8_t * return_para = hci_event_command_complete_get_return_parameters(packet);
     switch (opcode) {
+        case HCI_OPCODE_HCI_READ_LOCAL_VERSION_INFORMATION:
+            lmp_subversion = little_endian_read_16(packet, 12);
+            break;
         case HCI_OPCODE_HCI_RTK_READ_ROM_VERSION:
             rom_version = return_para[1];
             log_info("Received ROM version 0x%02x", rom_version);
@@ -939,8 +942,11 @@ static btstack_chipset_result_t chipset_next_command(uint8_t *hci_cmd_buffer) {
             if (ret != FW_DONE) {
                 break;
             }
-            // we are done fall through
+            // we are done
             state = STATE_RESET;
+
+            /* fall through */
+
         case STATE_RESET:
             HCI_CMD_SET_OPCODE(hci_cmd_buffer, HCI_OPCODE_HCI_RESET);
             HCI_CMD_SET_LENGTH(hci_cmd_buffer, 0);
@@ -949,11 +955,9 @@ static btstack_chipset_result_t chipset_next_command(uint8_t *hci_cmd_buffer) {
         case STATE_DONE:
             hci_remove_event_handler(&hci_event_callback_registration);
             return BTSTACK_CHIPSET_DONE;
-            break;
         default:
             log_info("Invalid state %d", state);
             return BTSTACK_CHIPSET_DONE;
-            break;
         }
         return BTSTACK_CHIPSET_VALID_COMMAND;
     }
