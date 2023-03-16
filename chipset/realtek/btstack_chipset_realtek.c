@@ -411,6 +411,10 @@ static void hci_packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *p
 
 static void chipset_init(const void *config) {
     UNUSED(config);
+
+    // pre-set lmp subversion: HCI starts custom download only if HCI Version = 0x00e, and LMP Subversion = 0x8822
+    lmp_subversion = 0x8822;
+
 #ifdef HAVE_POSIX_FILE_IO
     // determine file path
     if (firmware_file_path == NULL || config_file_path == NULL) {
