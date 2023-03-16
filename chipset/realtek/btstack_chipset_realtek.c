@@ -995,10 +995,6 @@ void btstack_chipset_realtek_set_config_folder_path(const char *path) {
 #endif
 }
 
-void btstack_chipset_realtek_set_lmp_subversion(uint16_t version) {
-    lmp_subversion = version;
-}
-
 void btstack_chipset_realtek_set_product_id(uint16_t id) {
     product_id = id;
 }
