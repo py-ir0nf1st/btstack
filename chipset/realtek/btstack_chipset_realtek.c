@@ -76,10 +76,10 @@
 
 #define READ_SEC_PROJ 4
 
-#define FILL_COMMAND(buf, command) ((int16_t *)buf)[0] = command
-#define FILL_LENGTH(buf, length) buf[2] = length
-#define FILL_INDEX(buf, index) buf[3] = index
-#define FILL_FW_DATA(buf, firmware, ptr, len) memcpy(buf + 4, firmware + ptr, len)
+#define HCI_CMD_SET_OPCODE(buf, opcode) little_endian_store_16(buf, 0, opcode)
+#define HCI_CMD_SET_LENGTH(buf, length) buf[2] = length
+#define HCI_CMD_DOWNLOAD_SET_INDEX(buf, index) buf[3] = index
+#define HCI_CMD_DOWNLOAD_COPY_FW_DATA(buf, firmware, ptr, len) memcpy(buf + 4, firmware + ptr, len)
 
 #define PATCH_SNIPPETS		0x01
 #define PATCH_DUMMY_HEADER	0x02
@@ -870,7 +870,7 @@ static uint8_t update_firmware(const char *firmware, const char *config, uint8_t
                 memcpy(&patch_buf[fw_total_len - conf_size], conf_buf, conf_size);
             }
         } else {
-        // copy patch
+            // copy patch
             memcpy(patch_buf, fw_buf + offset, patch_length);
             memcpy(patch_buf + patch_length - 4, &fw_version, 4);
             memcpy(patch_buf + patch_length, conf_buf, conf_size);
@@ -892,10 +892,10 @@ static uint8_t update_firmware(const char *firmware, const char *config, uint8_t
     }
 
     if (len) {
-        FILL_COMMAND(hci_cmd_buffer, HCI_OPCODE_HCI_RTK_DOWNLOAD_FW);
-        FILL_LENGTH(hci_cmd_buffer, len + 1);
-        FILL_INDEX(hci_cmd_buffer, index);
-        FILL_FW_DATA(hci_cmd_buffer, patch_buf, fw_ptr, len);
+        little_endian_store_16(hci_cmd_buffer, 0, HCI_OPCODE_HCI_RTK_DOWNLOAD_FW);
+        HCI_CMD_SET_LENGTH(hci_cmd_buffer, len + 1);
+        HCI_CMD_DOWNLOAD_SET_INDEX(hci_cmd_buffer, index);
+        HCI_CMD_DOWNLOAD_COPY_FW_DATA(hci_cmd_buffer, patch_buf, fw_ptr, len);
         index++;
         if (index > 0x7f) {
             index = (index & 0x7f) +1;
@@ -921,8 +921,8 @@ static btstack_chipset_result_t chipset_next_command(uint8_t *hci_cmd_buffer) {
     while (true) {
         switch (state) {
         case STATE_READ_ROM_VERSION:
-            FILL_COMMAND(hci_cmd_buffer, HCI_OPCODE_HCI_RTK_READ_ROM_VERSION);
-            FILL_LENGTH(hci_cmd_buffer, 0);
+            HCI_CMD_SET_OPCODE(hci_cmd_buffer, HCI_OPCODE_HCI_RTK_READ_ROM_VERSION);
+            HCI_CMD_SET_LENGTH(hci_cmd_buffer, 0);
             state = STATE_READ_SEC_PROJ;
             break;
         case STATE_READ_SEC_PROJ:
@@ -942,8 +942,8 @@ static btstack_chipset_result_t chipset_next_command(uint8_t *hci_cmd_buffer) {
             // we are done fall through
             state = STATE_RESET;
         case STATE_RESET:
-            FILL_COMMAND(hci_cmd_buffer, HCI_OPCODE_HCI_RESET);
-            FILL_LENGTH(hci_cmd_buffer, 0);
+            HCI_CMD_SET_OPCODE(hci_cmd_buffer, HCI_OPCODE_HCI_RESET);
+            HCI_CMD_SET_LENGTH(hci_cmd_buffer, 0);
             state = STATE_DONE;
             break;
         case STATE_DONE:
