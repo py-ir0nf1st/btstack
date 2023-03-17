@@ -133,17 +133,19 @@ struct rtb_new_patch_hdr {
 } __attribute__ ((packed));
 
 enum {
-    STATE_STACK_INIT,
-    STATE_READ_LMP_SUBVERSION,
-    STATE_W4_READ_LMP_SUBVERSION,
-    STATE_READ_HCI_REVISION,
-    STATE_W4_READ_HCI_REVISION,
-    STATE_READ_ROM_VERSION,
-    STATE_READ_SEC_PROJ,
-    STATE_W4_SEC_PROJ,
-    STATE_LOAD_FIRMWARE,
-    STATE_RESET,
-    STATE_DONE,
+    // Pre-Init: runs before HCI Reset
+    STATE_PHASE_1_READ_LMP_SUBVERSION,
+    STATE_PHASE_1_W4_READ_LMP_SUBVERSION,
+    STATE_PHASE_1_READ_HCI_REVISION,
+    STATE_PHASE_1_W4_READ_HCI_REVISION,
+    STATE_PHASE_1_DONE,
+    // Custom Init: runs after HCI Reset
+    STATE_PHASE_2_READ_ROM_VERSION,
+    STATE_PHASE_2_READ_SEC_PROJ,
+    STATE_PHASE_2_W4_SEC_PROJ,
+    STATE_PHASE_2_LOAD_FIRMWARE,
+    STATE_PHASE_2_RESET,
+    STATE_PHASE_2_DONE,
 };
 enum { FW_DONE, FW_MORE_TO_DO };
 
@@ -396,29 +398,34 @@ static void hci_packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *p
         case HCI_OPCODE_HCI_RTK_READ_ROM_VERSION:
             rom_version = return_para[1];
             log_info("Received ROM version 0x%02x", rom_version);
-            printf("Received ROM version 0x%02x\n", rom_version);
+            printf("Realtek: Received ROM version 0x%02x\n", rom_version);
             if (patch->lmp_sub != lmp_subversion) {
-                printf("Firmware already exists\n");
-                state = STATE_DONE;
+                printf("Realtek: Firmware already exists\n");
+                state = STATE_PHASE_2_DONE;
             }
             break;
         case HCI_OPCODE_HCI_RTK_READ_CARD_INFO:
             switch (state){
-                case STATE_STACK_INIT:
-                    log_info("Read Card: main stack");
-                    break;
-                case STATE_W4_READ_LMP_SUBVERSION:
+                case STATE_PHASE_1_W4_READ_LMP_SUBVERSION:
                     log_info("Read Card: LMP Subversion");
-                    state = STATE_READ_HCI_REVISION;
+                    if (little_endian_read_16(hci_event_command_complete_get_return_parameters(packet), 1) == 0x8822){
+                        state = STATE_PHASE_1_READ_HCI_REVISION;
+                    } else {
+                        state = STATE_PHASE_1_DONE;
+                    }
                     break;
-                case STATE_W4_READ_HCI_REVISION:
+                case STATE_PHASE_1_W4_READ_HCI_REVISION:
                     log_info("Read Card: HCI Revision");
-                    state = STATE_READ_ROM_VERSION;
+                    if (little_endian_read_16(hci_event_command_complete_get_return_parameters(packet), 1) == 0x000e){
+                        state = STATE_PHASE_2_READ_ROM_VERSION;
+                    } else {
+                        state = STATE_PHASE_1_DONE;
+                    }
                     break;
-                case STATE_W4_SEC_PROJ:
+                case STATE_PHASE_2_W4_SEC_PROJ:
                     g_key_id = return_para[1];
-                    printf("Received key id 0x%02x\n", g_key_id);
-                    state = STATE_LOAD_FIRMWARE;
+                    printf("Realtek: Received key id 0x%02x\n", g_key_id);
+                    state = STATE_PHASE_2_LOAD_FIRMWARE;
                     break;
                 default:
                     btstack_assert(false);
@@ -449,7 +456,7 @@ static void chipset_init(const void *config) {
         }
         if (patch == NULL) {
             log_info("Product id 0x%04x is unknown", product_id);
-            state = STATE_DONE;
+            state = STATE_PHASE_2_DONE;
             return;
         }
         snprintf(firmware_file, sizeof(firmware_file), "%s/%s", firmware_folder_path, patch->patch_name);
@@ -459,12 +466,12 @@ static void chipset_init(const void *config) {
         //lmp_subversion     = patch->lmp_sub;
     }
     log_info("Using firmware '%s' and config '%s'", firmware_file_path, config_file_path);
-    printf("Using firmware '%s' and config '%s'\n", firmware_file_path, config_file_path);
+    printf("Realtek: Using firmware '%s' and config '%s'\n", firmware_file_path, config_file_path);
 
     // activate hci callback
     hci_event_callback_registration.callback = &hci_packet_handler;
     hci_add_event_handler(&hci_event_callback_registration);
-    state = STATE_STACK_INIT;
+    state = STATE_PHASE_1_READ_LMP_SUBVERSION;
 #endif
 }
 
@@ -672,7 +679,7 @@ static uint8_t *rtb_get_patch_header(uint32_t *len,
         switch (section_hdr.opcode) {
         case PATCH_SNIPPETS:
             insert_patch(patch_list, section_pos, PATCH_SNIPPETS, &patch_len, NULL);
-            printf("patch len is %d\n",patch_len);
+            printf("Realtek: patch len is %d\n",patch_len);
             break;
         case PATCH_SECURITY_HEADER:
             if(!g_key_id)
@@ -823,7 +830,7 @@ static uint8_t update_firmware(const char *firmware, const char *config, uint8_t
         btstack_linked_list_t patch_list = NULL;
         bool have_new_firmware_signature = memcmp(fw_buf, FW_SIGNATURE_NEW, 8) == 0;
         if (have_new_firmware_signature){
-            printf("Using new signature\n");
+            printf("Realtek: Using new signature\n");
             uint8_t key_id = g_key_id;
             if (key_id < 0) {
                 log_info("Wrong key id. Quit!");
@@ -840,7 +847,7 @@ static uint8_t update_firmware(const char *firmware, const char *config, uint8_t
             }
             fw_total_len += conf_size;
         } else {
-            printf("Using old signature\n");
+            printf("Realtek: Using old signature\n");
             // read firmware version
             fw_version = little_endian_read_32(fw_buf, 8);
             log_info("Firmware version: 0x%x", fw_version);
@@ -868,9 +875,9 @@ static uint8_t update_firmware(const char *firmware, const char *config, uint8_t
         }
 
         max_patch_size = get_max_patch_size(patch->chip_type);
-        printf("FW/CONFIG total length is %d, max patch size id %d\n", fw_total_len, max_patch_size);
+        printf("Realtek: FW/CONFIG total length is %d, max patch size id %d\n", fw_total_len, max_patch_size);
         if (fw_total_len > max_patch_size) {
-            printf("FW/CONFIG total length larger than allowed %d\n", max_patch_size);
+            printf("FRealtek: W/CONFIG total length larger than allowed %d\n", max_patch_size);
             finalize_file_and_buffer(&fw, &fw_buf);
             finalize_file_and_buffer(&conf, &conf_buf);
             return FW_DONE;
@@ -935,7 +942,7 @@ static uint8_t update_firmware(const char *firmware, const char *config, uint8_t
     // cleanup and return
     free(patch_buf);
     patch_buf = NULL;
-    printf("Init process finished\n");
+    printf("Realtek: Init process finished\n");
     return FW_DONE;
 }
 
@@ -947,32 +954,31 @@ static const uint8_t hci_realtek_read_hci_revision[]   = {0x61, 0xfc, 0x05, 0x10
 
 static btstack_chipset_result_t chipset_next_command(uint8_t *hci_cmd_buffer) {
 #ifdef HAVE_POSIX_FILE_IO
-    // TODO: remove
-    if (state == STATE_STACK_INIT){
-        state = STATE_READ_LMP_SUBVERSION;
-    }
-
     uint8_t ret;
     while (true) {
         switch (state) {
-            case STATE_READ_LMP_SUBVERSION:
+            case STATE_PHASE_1_READ_LMP_SUBVERSION:
                 memcpy(hci_cmd_buffer, hci_realtek_read_lmp_subversion, sizeof(hci_realtek_read_lmp_subversion));
-                state = STATE_W4_READ_LMP_SUBVERSION;
+                state = STATE_PHASE_1_W4_READ_LMP_SUBVERSION;
                 break;
-            case STATE_READ_HCI_REVISION:
+            case STATE_PHASE_1_READ_HCI_REVISION:
                 memcpy(hci_cmd_buffer, hci_realtek_read_hci_revision, sizeof(hci_realtek_read_hci_revision));
-                state = STATE_W4_READ_HCI_REVISION;
+                state = STATE_PHASE_1_W4_READ_HCI_REVISION;
                 break;
-            case STATE_READ_ROM_VERSION:
+            case STATE_PHASE_1_DONE:
+                // custom pre-init done, continue with read ROM version in main custom init
+                state = STATE_PHASE_2_READ_ROM_VERSION;
+                return BTSTACK_CHIPSET_DONE;
+            case STATE_PHASE_2_READ_ROM_VERSION:
                 HCI_CMD_SET_OPCODE(hci_cmd_buffer, HCI_OPCODE_HCI_RTK_READ_ROM_VERSION);
                 HCI_CMD_SET_LENGTH(hci_cmd_buffer, 0);
-                state = STATE_READ_SEC_PROJ;
+                state = STATE_PHASE_2_READ_SEC_PROJ;
                 break;
-            case STATE_READ_SEC_PROJ:
+            case STATE_PHASE_2_READ_SEC_PROJ:
                 memcpy(hci_cmd_buffer, hci_realtek_read_sec_proj, sizeof(hci_realtek_read_sec_proj));
-                state = STATE_W4_SEC_PROJ;
+                state = STATE_PHASE_2_W4_SEC_PROJ;
                 break;
-            case STATE_LOAD_FIRMWARE:
+            case STATE_PHASE_2_LOAD_FIRMWARE:
                 if (lmp_subversion != ROM_LMP_8723a) {
                     ret = update_firmware(firmware_file_path, config_file_path, hci_cmd_buffer);
                 } else {
@@ -983,16 +989,16 @@ static btstack_chipset_result_t chipset_next_command(uint8_t *hci_cmd_buffer) {
                     break;
                 }
                 // we are done
-                state = STATE_RESET;
+                state = STATE_PHASE_2_RESET;
 
                 /* fall through */
 
-            case STATE_RESET:
+            case STATE_PHASE_2_RESET:
                 HCI_CMD_SET_OPCODE(hci_cmd_buffer, HCI_OPCODE_HCI_RESET);
                 HCI_CMD_SET_LENGTH(hci_cmd_buffer, 0);
-                state = STATE_DONE;
+                state = STATE_PHASE_2_DONE;
                 break;
-            case STATE_DONE:
+            case STATE_PHASE_2_DONE:
                 hci_remove_event_handler(&hci_event_callback_registration);
                 return BTSTACK_CHIPSET_DONE;
             default:
