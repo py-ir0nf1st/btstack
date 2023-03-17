@@ -150,9 +150,9 @@ static void packet_handler (uint8_t packet_type, uint16_t channel, uint8_t *pack
             // set Product ID for Realtek Controllers and use Realtek-specific stack startup
             if (vendor_id == USB_VENDOR_ID_REALTEK) {
                 printf("Realtek Controller - requires firmware and config download\n");
+                btstack_chipset_realtek_set_product_id(product_id);
                 hci_set_chipset(btstack_chipset_realtek_instance());
                 hci_set_manufacturer(BLUETOOTH_COMPANY_ID_REALTEK_SEMICONDUCTOR_CORPORATION);
-                btstack_chipset_realtek_set_product_id(product_id);
             }
             break;
         case BTSTACK_EVENT_STATE:
